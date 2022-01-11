@@ -2,3 +2,6 @@
 # There will be two sections: The image generator, in which multiple png files are placed together,
 #   along with some masking effects. Secondly, there will be a randomization function.
 
+import Image_Creation
+
+Image_Creation.testing()
