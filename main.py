@@ -4,4 +4,5 @@
 
 import Image_Creation
 
-Image_Creation.testing()
+# Image_Creation.testing()
+Image_Creation.first()
