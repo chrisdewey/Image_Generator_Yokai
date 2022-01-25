@@ -116,7 +116,7 @@ def first():  # USE A LOOP TO COMBINE IMAGES
     weapon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapon 武器/Katana 刀/Ashikaga.png')
     banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/Ashikaga 足利.png')
 
-    base = base.convert("RGBA")
+    """ base = base.convert("RGBA")
     skin = skin.convert("RGBA")
     clothes = clothes.convert("RGBA")
     earringL = earringL.convert("RGBA")
@@ -125,7 +125,7 @@ def first():  # USE A LOOP TO COMBINE IMAGES
     face = face.convert("RGBA")
     head = head.convert("RGBA")
     weapon = weapon.convert("RGBA")
-    banner = banner.convert("RGBA")
+    banner = banner.convert("RGBA") """
 
     base.paste(skin, skin)
     base.paste(banner, banner)
@@ -140,11 +140,22 @@ def first():  # USE A LOOP TO COMBINE IMAGES
     overlay_textures(base)
 
 
+def create_single(char_traits):
+    print('okay')
+    bg = char_traits[0]
+    clan = char_traits[1]
+    base = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(bg)
+
+    base.paste(skin, skin)
+
+    overlay_textures(base)
+
+
 # should i do each  race as it's own class? or is that excessive mem usage?
-def generate(trait_list, roster_number):  # create as samurai first? maybe make separate funcs for each race?
+def generate(traits_list, roster_number):  # create as samurai first? maybe make separate funcs for each race?
     # loop through traits list.
     # discover clan firstly
-    clan = trait_list.clan  # obviously make this work or reword/rewrite.
+    clan = traits_list.clan  # obviously make this work or reword/rewrite.
     # loop through the traits going through bottom-most layer first, and if it exists,
     # then add it to the image
     # finish with textures and stamp
