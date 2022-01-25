@@ -104,7 +104,7 @@ def mask_textures(base):  # DID THIS ACTUALLY WORK BRO?? It creates the clipping
     mask_texture.save('images/Ukiyoe Warriors/test.png')
 
 
-def first():  # USE A LOOP TO COMBINE IMAGES
+def first():  # test
     base = Image.open('images/Ukiyoe Warriors/- Backgrounds 背景 -/Fuji 富士.png')
     skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
     clothes = Image.open('images/Ukiyoe Warriors/Samurai 侍/Attire 服装/Kimono 着物/Checkered チェック/Checkered - Ashikaga.png')
@@ -145,13 +145,23 @@ def create_single(char_traits, roster_number):
     bg = char_traits[0]
     clan = char_traits[1]
     base = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(bg)
+
     skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
     base.paste(skin, skin)
 
-    base = add_banner(base, char_traits)
+    banner = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[3])
+    base.paste(banner, banner)
 
-    if not char_traits[4]:
-        base = add_earring_left(base, char_traits)
+    clothing = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[4])
+    base.paste(clothing, clothing)
+
+    if not char_traits[5]:
+        earring_left = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[5])
+        base.paste(earring_left, earring_left)
+
+    if not char_traits[6]:
+        earring_right = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[6])
+        base.paste(earring_right, earring_right)
 
     overlay_textures(base)
     base.save('Samurai {}.png').format(roster_number)
