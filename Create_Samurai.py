@@ -140,15 +140,35 @@ def first():  # USE A LOOP TO COMBINE IMAGES
     overlay_textures(base)
 
 
-def create_single(char_traits):
+def create_single(char_traits, roster_number):
     print('okay')
     bg = char_traits[0]
     clan = char_traits[1]
     base = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(bg)
-
+    skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
     base.paste(skin, skin)
 
+    base = add_banner(base, char_traits)
+
+    if not char_traits[4]:
+        base = add_earring_left(base, char_traits)
+
     overlay_textures(base)
+    base.save('Samurai {}.png').format(roster_number)
+
+
+def add_banner(base, char_traits):
+    banner = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[3])
+    base.paste(banner, banner)
+
+    return base
+
+
+def add_earring_left(base, char_traits):
+    earring_left = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[3])
+    base.paste()
+
+    return base
 
 
 # should i do each  race as it's own class? or is that excessive mem usage?
