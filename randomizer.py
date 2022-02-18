@@ -1,11 +1,12 @@
-from numpy import random
+import random
 # I will need  a hash table to call so when I create a random guy if all the
 # traits are already found in another char., then change one of the traits?
 # .... I need to research randomizer algo
 # hash table in python == a dict, also a set == a hash table w no key/val pairs.
 
 # Empty set where completed nft generated lists will be stored, to be checked for uniqueness
-traits_list = set()
+traits_list_hash = set()
+traits_list = []
 
 # Num of Samurai to generate
 # num_samurai = 1259
@@ -39,26 +40,70 @@ head_sam_weights = [10, 30, 20, 20, 20]
 weapon_sam = ["Bow 弓", "Demon Sword 妖刀", "Katana 刀", "Naginata 薙刀", "Niten-Ichiryu 二天一流", "SHAman Bow シャマ弓"]
 weapon_sam_weights = [20, 15, 25, 20, 15, 5]
 
-
+# test = random.choices(attire_sam, attire_sam_weights)[0]
+# print(test)
 def generate_samurai():
+    # need to add left earring with checks!!
+    # maybe make a dictionary literal??
+    new_samurai = []  # dict to hold traits for single samurai
 
-    new_samurai = {}  # dict to hold traits for single samurai
+    """
+    new_samurai["bg"] = random.choices(bg, bg_weights)
+    new_samurai["banner"] = random.choices(banner)
 
-    new_samurai["bg"] = random.choice(bg, bg_weights)
-    new_samurai["banner"] = random.choice(banner, banner_weights)
-
-    if random.choice(attire_sam, attire_sam_weights) == "Kimono 着物":
-        new_samurai["attire"] = random.choice(kimono_sam, kimono_sam_weights)
+    attire = random.choices(attire_sam, attire_sam_weights)
+    if attire == "Kimono 着物":
+        new_samurai["attire"] = random.choices(kimono_sam, kimono_sam_weights)
     else:
         new_samurai["attire"] = "Armor 鎧"
 
-    new_samurai["earring_right"] = random.choice(earring_right_sam, earring_right_sam_weights)
+    new_samurai["earring_right"] = random.choices(earring_right_sam, earring_right_sam_weights)
+    new_samurai["face"] = random.choices(face_sam, face_sam_weights)
+    new_samurai["head"] = random.choices(head_sam, head_sam_weights)
+    new_samurai["weapon"] = random.choices(weapon_sam, weapon_sam_weights)
+    """
 
-    if new_samurai["earring_right"] ==
+    new_samurai.append(random.choices(bg, bg_weights)[0])
+    # Banner signifies the clan the samurai belongs to.
+    new_samurai.append(random.choices(banner)[0])
+
+    # Choose clothing. If Kimono, then return append type. Else append armor.
+    attire = random.choices(attire_sam, attire_sam_weights)[0]
+    if attire == "Kimono 着物":
+        new_samurai.append(random.choices(kimono_sam)[0])
+    else:
+        new_samurai.append("Armor 鎧")
+
+    new_samurai.append(random.choices(eyes_sam, eyes_sam_weights)[0])
+    new_samurai.append(random.choices(face_sam, face_sam_weights)[0])
+
+    earring = random.choices(earring_right_sam, earring_right_sam_weights)[0]
+    new_samurai.append(earring)
+    if earring in ["Hunter 狩り", "Slayer 鬼滅 1"]:
+        new_samurai.append(earring)
+    else:
+        new_samurai.append("None")
+
+    new_samurai.append(random.choices(head_sam, head_sam_weights)[0])
+    new_samurai.append(random.choices(weapon_sam, weapon_sam_weights)[0])
+
+    # print(new_samurai)
+    tups = tuple(new_samurai)
+    # print(tups)
+    key = hash(tups)
+
+    if key in traits_list_hash:
+        print("CONFLICT")
+        return generate_samurai()
+    else:
+        return tups
 
 
 def randomize_samurai(num_to_gen):
     for i in range(num_to_gen):
         new_samurai = generate_samurai()
 
-        traits_list.add(new_samurai)
+        traits_list_hash.add(hash(new_samurai))
+        traits_list.append(new_samurai)
+
+    return traits_list

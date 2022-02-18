@@ -100,8 +100,17 @@ def mask_textures(base):  # DID THIS ACTUALLY WORK BRO?? It creates the clipping
     mask_texture = mask_texture.resize(base.size)
 
     mask_texture.paste(base, mask_texture)
-    mask_texture.show()
-    mask_texture.save('images/Ukiyoe Warriors/test.png')
+
+    stamp(mask_texture)
+
+
+def stamp(base):
+    stamp = Image.open('images/Ukiyoe Warriors/Stamp.png')
+    stamp = stamp.resize(base.size)
+
+    base.paste(stamp, stamp)
+
+    base.show()
 
 
 def first():  # test
@@ -113,7 +122,7 @@ def first():  # test
     eyes = Image.open('images/Ukiyoe Warriors/Samurai 侍/Eyes 目/Calm 静か.png')
     face = Image.open('images/Ukiyoe Warriors/Samurai 侍/Face 顔/Golden Oni Mask 鬼の面（金）.png')
     head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/Sedge Hat 菅笠.png')
-    weapon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapon 武器/Katana 刀/Ashikaga.png')
+    weapon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapons 武器/Katana 刀/Ashikaga.png')
     banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/Ashikaga 足利.png')
 
     """ base = base.convert("RGBA")
@@ -182,12 +191,15 @@ def add_earring_left(base, char_traits):
 
 
 # should i do each  race as it's own class? or is that excessive mem usage?
-def generate(traits_list, roster_number):  # create as samurai first? maybe make separate funcs for each race?
+def generate(traits_list):  # create as samurai first? maybe make separate funcs for each race?
     # loop through traits list.
     # discover clan firstly
-    clan = traits_list.clan  # obviously make this work or reword/rewrite.
+    # clan = traits_list.clan  # obviously make this work or reword/rewrite.
     # loop through the traits going through bottom-most layer first, and if it exists,
     # then add it to the image
     # finish with textures and stamp
     # save file with passed in file number... then calculate rarity? not sure yet.
-    samurai_number = roster_number
+    samurai_number = 0
+
+    for traits in traits_list:
+
