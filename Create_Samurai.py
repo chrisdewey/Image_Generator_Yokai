@@ -69,11 +69,7 @@ def mult_texture(base):
 
 
 def overlay_textures(base):
-    overlay_texture = Image.open('images/Ukiyoe Warriors/- Textures -/3. Overlay Texture.png')
-
-    # base.paste(add_layer, add_layer)
-
-    overlay_texture = overlay_texture.resize(base.size)
+    overlay_texture = Image.open('images/Ukiyoe Warriors/- Textures -/1. Overlay Texture.png')
 
     # Convert base to numpy array as float for blend_modes functionality
     base_array = numpy.array(base)
@@ -91,17 +87,16 @@ def overlay_textures(base):
     blended_img = numpy.uint8(blended_img_float)
     blended_img_raw = Image.fromarray(blended_img)
 
-    mult_texture(blended_img_raw)
+    return mask_textures(blended_img_raw)
 
 
 def mask_textures(base):  # DID THIS ACTUALLY WORK BRO?? It creates the clipping mask effect found in other image
                           # Editing programs by pasting the base image OVER the mask, using the masks alpha channel.
-    mask_texture = Image.open('images/Ukiyoe Warriors/- Textures -/4. Mask Texture.png')
-    mask_texture = mask_texture.resize(base.size)
+    mask_texture = Image.open('images/Ukiyoe Warriors/- Textures -/2. Mask Texture.png')
 
     mask_texture.paste(base, mask_texture)
 
-    stamp(mask_texture)
+    return stamp(mask_texture)
 
 
 def stamp(base):
@@ -110,9 +105,9 @@ def stamp(base):
 
     base.paste(stamp, stamp)
 
-    base.show()
+    return base
 
-
+"""
 def first():  # test
     base = Image.open('images/Ukiyoe Warriors/- Backgrounds 背景 -/Fuji 富士.png')
     skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
@@ -125,7 +120,7 @@ def first():  # test
     weapon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapons 武器/Katana 刀/Ashikaga.png')
     banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/Ashikaga 足利.png')
 
-    """ base = base.convert("RGBA")
+    base = base.convert("RGBA")
     skin = skin.convert("RGBA")
     clothes = clothes.convert("RGBA")
     earringL = earringL.convert("RGBA")
@@ -134,7 +129,7 @@ def first():  # test
     face = face.convert("RGBA")
     head = head.convert("RGBA")
     weapon = weapon.convert("RGBA")
-    banner = banner.convert("RGBA") """
+    banner = banner.convert("RGBA") 
 
     base.paste(skin, skin)
     base.paste(banner, banner)
@@ -174,7 +169,7 @@ def create_single(char_traits, roster_number):
 
     overlay_textures(base)
     base.save('Samurai {}.png').format(roster_number)
-
+"""
 
 def add_banner(base, char_traits):
     banner = Image.open('images/Ukiyoe Warriors/Samurai 侍/{}.png').format(char_traits[3])
@@ -190,6 +185,25 @@ def add_earring_left(base, char_traits):
     return base
 
 
+def clean_clan(clan_dirty):
+    if clan_dirty == "Ashikaga 足利":
+        return "Ashikaga"
+    elif clan_dirty == "Hōjō 北条":
+        return "Hojo"
+    elif clan_dirty == "Imagawa 今川":
+        return "Imagawa"
+    elif clan_dirty == "Minamoto 源":
+        return "Minamoto"
+    elif clan_dirty == "Sanada 真田":
+        return "Sanada"
+    elif clan_dirty == "Taira 平":
+        return "Taira"
+    elif clan_dirty == "Takeda 武田":
+        return "Takeda"
+    else:
+        print("Error in cleaning clan name.")
+
+
 # should i do each  race as it's own class? or is that excessive mem usage?
 def generate(traits_list):  # create as samurai first? maybe make separate funcs for each race?
     # loop through traits list.
@@ -202,4 +216,87 @@ def generate(traits_list):  # create as samurai first? maybe make separate funcs
     samurai_number = 0
 
     for traits in traits_list:
+        print(samurai_number)
+        clan_dirty = traits[1]
+        clan = clean_clan(clan_dirty)
 
+        base = Image.open('images/Ukiyoe Warriors/- Backgrounds 背景 -/{}.png'.format(traits[0]))  # Base == bg
+        banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/{}.png'.format(traits[1]))
+        skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
+        skin_and_head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head Base.png')
+
+        clothes_type = traits[2]
+
+        if clothes_type == "Armor 鎧":
+            clothes = Image.open('images/Ukiyoe Warriors/Samurai 侍//Attire 服装/Armor 鎧/{}.png'.format(clan))
+        else:
+            clothes = Image.open('images/Ukiyoe Warriors/Samurai 侍/Attire 服装/Kimono 着物/{0}/{1}.png'.format(clothes_type, clan))
+
+        eyes_trait = traits[3]
+        
+        if eyes_trait == "Saiké サイケ":
+            # TODO saike it up.. must be correct order though???
+            print("saike")
+            eyes = Image.open('images/Ukiyoe Warriors/Samurai 侍/Eyes 目/Calm 静か.png')
+        else:
+            eyes = Image.open('images/Ukiyoe Warriors/Samurai 侍/Eyes 目/{}.png'.format(eyes_trait))
+
+        face_trait = traits[4]
+        if face_trait == "None":
+            face = None
+        else:
+            face = Image.open('images/Ukiyoe Warriors/Samurai 侍/Face 顔/{}.png'.format(face_trait))
+
+        earring_l_trait = traits[5]
+        if earring_l_trait == "None":
+            earring_l = None
+        else:
+            earring_l = Image.open('images/Ukiyoe Warriors/Samurai 侍/Earrings 耳飾り/Earring 1 (Left)/{}.png'.format(earring_l_trait))
+
+        earring_r_trait = traits[6]
+        if earring_r_trait == "None":
+            earring_r = None
+        else:
+            earring_r = Image.open('images/Ukiyoe Warriors/Samurai 侍/Earrings 耳飾り/Earring 2 (Right)/{}.png'.format(earring_r_trait))
+
+        head_trait = traits[7]
+        if head_trait in ["Chasen 茶筅", "Sedge Hat 菅笠 2", "Topknot 髷"]:  # No back
+            head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{}.png'.format(head_trait))
+            head_back = None
+        elif head_trait in ["Disheveled 乱れ髪 + Headband 鉢巻", "Kabuto 兜"]:  # Back and Clan
+            head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Front/{1}.png'.format(head_trait, clan))
+            head_back = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Back.png'.format(head_trait))
+        elif head_trait in ["Chasen 茶筅 + Headband 鉢巻", "Topknot 髷 + Headband 鉢巻"]:  # NO Back and Clan
+            head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/{1}.png'.format(head_trait, clan))
+            head_back = None
+        else:  # Back and NO Clan
+            head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Front.png'.format(head_trait))
+            head_back = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Back.png'.format(head_trait))
+
+        weapon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapons 武器/Katana 刀/{}.png'.format(clan))  # TODO change this
+        if clothes_type == "Armor 鎧":
+            weapon_addon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapons 武器/Katana 刀/Obi 帯/w_ Armor.png')
+        else:
+            weapon_addon = Image.open('images/Ukiyoe Warriors/Samurai 侍/Weapons 武器/Katana 刀/Obi 帯/w_ Kimono.png')
+
+        base.paste(banner, banner)
+        base.paste(skin, skin)
+        if head_back is not None:
+            base.paste(head_back, head_back)
+        base.paste(skin_and_head, skin_and_head)
+        base.paste(clothes, clothes)
+        if earring_l is not None:
+            base.paste(earring_l, earring_l)
+        if earring_r is not None:
+            base.paste(earring_r, earring_r)
+        base.paste(eyes, eyes)
+        if face is not None:
+            base.paste(face, face)
+        base.paste(head, head)
+        base.paste(weapon, weapon)
+        base.paste(weapon_addon, weapon_addon)
+
+        base = overlay_textures(base)
+
+        base.save("output/{}.png".format(samurai_number))
+        samurai_number += 1

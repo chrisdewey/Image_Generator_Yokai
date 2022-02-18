@@ -6,10 +6,14 @@ import Create_Samurai
 import randomizer
 
 # Image_Creation.testing()
-Create_Samurai.first()
+# Create_Samurai.first()
 
-traits = randomizer.randomize_samurai(100)  # Should i call create_nftdoods directly in the randomizer funcs?
+traits = randomizer.randomize_samurai(10)  # Should i call create_nftdoods directly in the randomizer funcs?
+
+Create_Samurai.generate(traits)
+
+# Create_Metadata.samurai(traits)
 # or should i make list = randomizer.samurai() and then create_samurai.generate(list)?
 #
 # print(traits)
-print("order:\n bg\n banner\n attire\n eyes\n face\n earring r\n earring l\n head\n weapon")
+print("order:\n bg\n banner\n attire\n eyes\n face\n earring l\n earring r\n head\n weapon")
