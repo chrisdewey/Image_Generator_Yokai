@@ -298,5 +298,6 @@ def generate(traits_list):  # create as samurai first? maybe make separate funcs
 
         base = overlay_textures(base)
 
-        base.save("output/{}.png".format(samurai_number))
+        base.save("output/Samurai#{}.png".format(samurai_number))
         samurai_number += 1
+# TODO add an Image.close() for each png layer????? after each iter.
