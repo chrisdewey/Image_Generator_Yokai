@@ -9,11 +9,11 @@ import randomizer
 # Image_Creation.testing()
 # Create_Samurai.first()
 
-traits = randomizer.randomize_samurai(100)  # Should i call create_nftdoods directly in the randomizer funcs?
+traits = randomizer.randomize_all(3776)  # Should i call create_nftdoods directly in the randomizer funcs?
 
-Create_Samurai.generate(traits)
+# Create_Samurai.generate(traits)
 
-Create_Metadata.samurai(traits)
+# Create_Metadata.samurai(traits)
 # or should i make list = randomizer.samurai() and then create_samurai.generate(list)?
 #
 # print(traits)

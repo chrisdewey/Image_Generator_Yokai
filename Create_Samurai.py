@@ -281,17 +281,17 @@ def generate(traits_list):  # create as samurai first? maybe make separate funcs
 
         base.paste(banner, banner)
         base.paste(skin, skin)
+        base.paste(clothes, clothes)
         if head_back is not None:
             base.paste(head_back, head_back)
-        base.paste(skin_and_head, skin_and_head)
-        base.paste(clothes, clothes)
-        if earring_l is not None:
-            base.paste(earring_l, earring_l)
         if earring_r is not None:
             base.paste(earring_r, earring_r)
+        base.paste(skin_and_head, skin_and_head)
         base.paste(eyes, eyes)
         if face is not None:
             base.paste(face, face)
+        if earring_l is not None:
+            base.paste(earring_l, earring_l)
         base.paste(head, head)
         base.paste(weapon, weapon)
         base.paste(weapon_addon, weapon_addon)
