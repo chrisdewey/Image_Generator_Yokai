@@ -9,6 +9,12 @@ import fnmatch
 traits_list_hash = set()
 traits_list = []
 
+characters = 3773
+chars_list = []
+# total_samurai = 1257
+# total_musha = 1258
+# total_ape = 1258
+
 # Num of Samurai to generate
 # num_samurai = 1259
 
@@ -57,7 +63,7 @@ face = ["Plain 普通", "Himura Scar 緋村の傷", "Ninja 忍び", "Oni 鬼",
 face_random = []
 face_nums = [1127, 699, 599, 499, 449, 290, 100, 10]
 
-weapons = ["Katana 刀", "Bow 弓", "Katana 刀", "Niten Ichi-ryū 二天一流",
+weapons = ["Katana 刀", "Bow 弓", "Katana 刀", "Niten-Ichi-ryū 二天一流",
           "Boar Blades 猪の剣", "SHAman Bow シャマ弓", "Demon Sword 妖刀"]
 weapons_random = []
 weapons_nums = [1531, 1200, 900, 99, 24, 19]
@@ -65,6 +71,49 @@ weapons_nums = [1531, 1200, 900, 99, 24, 19]
 elements = ["None", "Air 風", "Earth 地", "Water 水", "Fire 火", "Lightning 雷"]
 elements_random = []
 elements_num = [3000, 300, 219, 151, 99, 4]
+
+
+def swap_helmet(char_num, char):
+    if char == "Samurai 侍":
+        for i in range(char_num+1, len(sam_head_random)):
+            if sam_head_random[i] != "Kabuto 兜":
+                new_index = i
+                sam_head_random[char_num], sam_head_random[i] = sam_head_random[i], sam_head_random[char_num]
+                return
+
+    if char == "Musha 武者":
+        for i in range(char_num+1, len(musha_head_random)):
+            if musha_head_random[i] != "Kabuto 兜":
+                new_index = i
+                musha_head_random[char_num], musha_head_random[i] = musha_head_random[i], musha_head_random[char_num]
+                return
+
+    if char == "Ape 猿":
+        for i in range(char_num+1, len(ape_head_random)):
+            if ape_head_random[i] != "Kabuto 兜":
+                new_index = i
+                ape_head_random[char_num], ape_head_random[i] = ape_head_random[i], ape_head_random[char_num]
+                return
+
+    raise IOError("There was no helmet left for it to be switched to!")
+
+
+def gen_char_list(num):
+    total_samurai = 1257
+    total_musha = 1258
+    total_ape = 903  # - 355 for wl
+    for i in range(total_samurai):
+        chars_list.append("Samurai 侍")
+    for i in range(total_musha):
+        chars_list.append("Musha 武者")
+    for i in range(total_ape):
+        chars_list.append("Ape 猿")
+
+    random.shuffle(chars_list)
+
+    for i in range(355):
+        chars_list.insert(0, "Ape 猿")
+    print("len = " + str(len(chars_list)))
 
 
 def gen_lists(num):
@@ -113,6 +162,16 @@ def gen_lists(num):
             elements_random.append(elements[i])
 
     random.shuffle(bg_random)
+    random.shuffle(clan_random)
+    random.shuffle(sam_head_random)
+    random.shuffle(musha_head_random)
+    random.shuffle(ape_head_random)
+    random.shuffle(earring_random)
+    random.shuffle(attire_random)
+    random.shuffle(face_random)
+    random.shuffle(eyes_random)
+    random.shuffle(weapons_random)
+    random.shuffle(elements_random)
 
 
 def generate_samurai(char_num):
@@ -120,10 +179,13 @@ def generate_samurai(char_num):
     # maybe make a dictionary literal??
     new_samurai = []  # dict to hold traits for single samurai
 
+    character = chars_list[char_num]
+    new_samurai.append(character)
+
     background = bg_random[char_num]
     new_samurai.append(background)
 
-    element = elements[char_num]
+    element = elements_random[char_num]
     if element != "None":
         # element back goes in
         new_samurai.append(element)
@@ -144,36 +206,52 @@ def generate_samurai(char_num):
     earring = earring_random[char_num]
     new_samurai.append(earring)
 
-    new_samurai.append(earring)
     if earring in ["Fusion 融合", "Slayer 鬼滅 1", "WoV V界 1"]:
         earring = earring.replace(earring[len(earring) - 1], '2')  # replace last char from 1 to 2
         new_samurai.append(earring)  # Add the right earring
     else:
         new_samurai.append("None")
 
+    # if character == "Ape 猿":
+
+    if character == "Samurai 侍":
+        if clothes != "Armor 鎧" and sam_head_random[char_num] == "Kabuto 兜":
+            swap_helmet(char_num, character)
+        head = sam_head_random[char_num]
+        new_samurai.append(head)
+
+    if character == "Musha 武者":
+        if clothes != "Armor 鎧" and musha_head_random[char_num] == "Kabuto 兜":
+            swap_helmet(char_num, character)
+        head = musha_head_random[char_num]
+        new_samurai.append(head)
+
+    if character == "Ape 猿":
+        if clothes != "Armor 鎧" and ape_head_random[char_num] == "Kabuto 兜":
+            swap_helmet(char_num, character)
+        head = ape_head_random[char_num]
+        new_samurai.append(head)
 
 
-    if attire == "Armor 鎧":
-        new_samurai.append(random.choices(head_sam_armored, head_sam_armored_weights)[0])
-    else:
-        new_samurai.append(random.choices(head_sam, head_sam_weights)[0])
 
-    new_samurai.append(random.choices(weapon_sam, weapon_sam_weights)[0])
 
     # print(new_samurai)
     tups = tuple(new_samurai)
-    # print(tups)
+    print(tups)
+    print(char_num)
     key = hash(tups)
 
     if key in traits_list_hash:
         print("CONFLICT")
-        return generate_samurai()
+        return generate_samurai(char_num)
     else:
         return tups
 
 
 def randomize_all(num_to_gen):
     gen_lists(num_to_gen)
+
+    gen_char_list(num_to_gen)
 
     for i in range(num_to_gen):
         new_samurai = generate_samurai(i)
