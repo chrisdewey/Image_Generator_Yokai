@@ -1,9 +1,4 @@
 import random
-import fnmatch
-# I will need  a hash table to call so when I create a random guy if all the
-# traits are already found in another char., then change one of the traits?
-# .... I need to research randomizer algo
-# hash table in python == a dict, also a set == a hash table w no key/val pairs.
 
 # Empty set where completed nft generated lists will be stored, to be checked for uniqueness
 traits_list_hash = set()
@@ -13,20 +8,14 @@ chars_tracker = [0, 0, 0]  # dict holding vars containing all chars. 0sam 1mus 2
 
 characters = 3773
 chars_list = []
-# total_samurai = 1257
-# total_musha = 1258
-# total_ape = 1258
-
-# Num of Samurai to generate
-# num_samurai = 1259
 
 # Lists holding traits and a weights var
-bg = ["Summer 夏", "Autumn 秋", "Winter 冬", "Spring 春", "Fuji 富士", "Ramen House / Izakaya 居酒屋",
+bg = ["Summer 夏", "Autumn 秋", "Winter 冬", "Spring 春", "Fuji 富士", "Ramen House ラーメン屋",
       "Shrine 神社", "Saiké Isekai サイケ異世界", "Inverse Saiké サイケ逆界"]
 bg_random = []
-bg_nums = [720, 640, 609, 580, 555, 411, 278, 34, 15]  # - ronin traits. do for all traits. done.
+bg_nums = [605, 525, 539, 510, 480, 401, 274, 34, 15]  # - ronin traits. do for all traits. done.
 
-banner = ["Ashikaga 足利", "Hōjō 北条", "Imagawa 今川", "Minamoto 源", "Sanada 真田", "Taira 平", "Takeda 武田"]  # TODO maybe change filename for Hojo for [:3] indices splitting. except it won't work were thehre are similar names like in hair
+banner = ["Ashikaga 足利", "Hōjō 北条", "Imagawa 今川", "Minamoto 源", "Sanada 真田", "Taira 平", "Takeda 武田"]
 clan_random = []
 clan_nums = [539, 539, 539, 539, 539, 539, 539]
 
@@ -34,31 +23,28 @@ head_sam = ["Topknot 髷", "Topknot 髷 + Headband 鉢巻", "Chasen 茶筅", "Ch
             "Disheveled 乱れ髪 + Headband 鉢巻", "Sedge Hat 菅笠", "Jingasa 陣笠", "Kabuto 兜"]
 sam_head_random = []
 sam_head_nums = [280, 246, 193, 174, 139, 130, 100, 50, 15]
-# TODO make sure to add, if attire != armor, check next in the sam_head_random list, if not kabuto, swap (else increment position)
 
 head_musha = ["Bun 髷", "Bun 髷 + Headband 鉢巻", "Ponytail 下げ髪", "Ponytail 下げ髪 + Headband 鉢巻", "Loose 垂髪",
             "Loose 垂髪 + Headband 鉢巻", "Sedge Hat 菅笠", "Jingasa 陣笠", "Kabuto 兜"]
 musha_head_random = []
 musha_head_nums = [250, 226, 193, 168, 150, 120, 100, 50, 15]
-# TODO make sure to add, if attire != armor, check next in the sam_head_random list, if not kabuto, swap (else increment position)
 
 head_ape = ["Short 短毛", "Short 短毛 + Headband 鉢巻", "Messy ボサボサ", "Messy ボサボサ + Headband 鉢巻", "Spiked ツンツン",
             "Spiked ツンツン + Headband 鉢巻", "Sedge Hat 菅笠", "Jingasa 陣笠", "Kabuto 兜"]
 ape_head_random = []
 ape_head_nums = [250, 226, 193, 165, 140, 120, 99, 50, 15]
-# TODO make sure to add, if attire != armor, check next in the sam_head_random list, if not kabuto, swap (else increment position)
 
 attire = ["Kimono Flowers 着物花", "Kimono Waves 着物波", "Kimono Clouds 着物曇", "Street Clothes 街着", "Armor 鎧"]
 attire_random = []
-attire_nums = [1001, 849, 749, 649, 549]  # TODO make sure to go over all ronin traits and subtract.
+attire_nums = [1001, 849, 749, 649, 549]
 
 earring_left = ["None", "Death 死", "Fusion 融合 1", "WoV V界 1", "Hunter 狩り", "Slayer 鬼滅 1"]  # some are right ear only! check if certain earrings in randomizer, then add left one as well.
 earring_random = []
-earring_nums = [1800, 599, 454, 379, 328, 222]
+earring_nums = [1430, 598, 452, 375, 326, 221]
 
 eyes = ["Relaxed 静か", "Angry 怒り", "Akuma 悪魔", "Sharingan 写輪眼", "Twilir トワイリル", "Ghoul 喰種", "Saiké サイケ"]
 eyes_random = []
-eyes_nums = [1320, 949, 648, 459, 255, 150, 49]
+eyes_nums = [1120, 849, 598, 459, 255, 150, 49]
 
 face = ["Plain 普通", "Himura Scar 緋村の傷", "Ninja 忍び", "Oni 鬼",
         "Armored 面頬", "Ghoul 喰種", "Golden Oni 金の鬼", "Kitsune 狐"]
@@ -70,7 +56,7 @@ weapons = ["Katana 刀", "Bow 弓", "Niten-Ichi-ryū 二天一流",
           "Boar Blades 猪の剣", "SHAman Bow シャマ弓", "Demon Sword 妖刀"]
 weapons_weights = [40, 33.1, 24.1, 2.8, 0, 0]
 weapons_random = []
-weapons_nums = [1531, 1250, 950, 109, 24, 19]
+weapons_nums = [1341, 1010, 900, 99, 24, 19]
 
 elements = ["None", "Air 風", "Earth 地", "Water 水", "Fire 火", "Lightning 雷"]
 elements_random = []
@@ -187,10 +173,33 @@ def gen_lists(num):
                     weapons_random[i], weapons_random[j] = weapons_random[j], weapons_random[i]
                     break
 
+    for i in range(371):
+        earring_random.insert(0, "None")
+    earring_random.insert(0, "Death 死")
+
+    for i in range(190):
+        weapons_random.insert(0, "Katana 刀")
+        weapons_random.insert(0, "Bow 弓")
+
+    for i in range(105):
+        bg_random.insert(0, "Summer 夏")
+        bg_random.insert(0, "Autumn 秋")
+    for i in range(60):
+        bg_random.insert(0, "Winter 冬")
+        bg_random.insert(0, "Spring 春")
+        bg_random.insert(0, "Fuji 富士")
+
+    for i in range(200):
+        eyes_random.insert(0, "Relaxed 静か")
+        if i > 99:
+            eyes_random.insert(0, "Angry 怒り")
+            if i > 149:
+                eyes_random.insert(0, "Akuma 悪魔")
+    print("check")
+    print(len(eyes_random))
+
 
 def generate_samurai(char_num):
-    # need to add left earring with checks!!
-    # maybe make a dictionary literal??
     new_samurai = []  # dict to hold traits for single samurai
 
     character = chars_list[char_num]
@@ -262,10 +271,7 @@ def generate_samurai(char_num):
 
 
 
-    # print(new_samurai)
     tups = tuple(new_samurai)
-    # print(tups)
-    # (char_num)
     key = hash(tups)
 
     if key in traits_list_hash:
@@ -274,14 +280,10 @@ def generate_samurai(char_num):
         new_samurai = reroll(new_samurai, char_num)
 
         tups = tuple(new_samurai)
-        # print("new tups")
-        # print(char_num)
         key = hash(tups)
 
         if key not in traits_list_hash:
             print(" Definitely RESOLVED")
-        # return generate_samurai(char_num)
-        # return tups
         return tups
     else:
         return tups
@@ -292,8 +294,6 @@ def reroll(new_samurai, char_num):
     new_samurai[9] = random.choices(face, face_weights)[0]
 
     tups = tuple(new_samurai)
-    # print("new tups")
-    # print(char_num)
     key = hash(tups)
     if key not in traits_list_hash:
         print("RESOLVED")
