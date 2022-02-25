@@ -10,9 +10,9 @@ import randomizer
 # Create_Samurai.first()
 
 traits = randomizer.randomize_all(3773)  # Should i call create_nftdoods directly in the randomizer funcs?
+#traits = [('Samurai 侍', 'Winter 冬', 'None', 'Imagawa 今川', 'Kimono Flowers 着物花', 'Bow 弓', 'None', 'None', 'Saiké サイケ', 'Ninja 忍び', 'Topknot 髷')]
 
-# Create_Samurai.generate(traits)
-
+#Create_Samurai.generate(traits)
 # Create_Metadata.samurai(traits)
 # or should i make list = randomizer.samurai() and then create_samurai.generate(list)?
 #

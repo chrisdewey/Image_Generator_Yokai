@@ -4,7 +4,7 @@ import json
 def samurai(traits_list):
 
     # Japanese for none: 無し
-    for i in range(len(traits_list)):
+    for i in range(1, len(traits_list)):
         # token_id = i['tokenId']
         token_id = i
         token = {
@@ -16,7 +16,7 @@ def samurai(traits_list):
         token["attributes"].append(
             {
                 "trait_type": "Character",
-                "value": "Samurai"  # TODO make dynamic?? unless we're keeping samurai as the function and repeating...
+                "value": traits_list[i][0]
             }
         )
         token["attributes"].append(

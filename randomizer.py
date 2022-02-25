@@ -9,6 +9,8 @@ import fnmatch
 traits_list_hash = set()
 traits_list = []
 
+chars_tracker = [0, 0, 0]  # dict holding vars containing all chars. 0sam 1mus 2ape
+
 characters = 3773
 chars_list = []
 # total_samurai = 1257
@@ -22,7 +24,7 @@ chars_list = []
 bg = ["Summer 夏", "Autumn 秋", "Winter 冬", "Spring 春", "Fuji 富士", "Ramen House / Izakaya 居酒屋",
       "Shrine 神社", "Saiké Isekai サイケ異世界", "Inverse Saiké サイケ逆界"]
 bg_random = []
-bg_nums = [710, 630, 599, 570, 540, 401, 274, 34, 15]  # - ronin traits. do for all traits. done.
+bg_nums = [720, 640, 609, 580, 555, 411, 278, 34, 15]  # - ronin traits. do for all traits. done.
 
 banner = ["Ashikaga 足利", "Hōjō 北条", "Imagawa 今川", "Minamoto 源", "Sanada 真田", "Taira 平", "Takeda 武田"]  # TODO maybe change filename for Hojo for [:3] indices splitting. except it won't work were thehre are similar names like in hair
 clan_random = []
@@ -31,13 +33,13 @@ clan_nums = [539, 539, 539, 539, 539, 539, 539]
 head_sam = ["Topknot 髷", "Topknot 髷 + Headband 鉢巻", "Chasen 茶筅", "Chasen 茶筅 + Headband 鉢巻", "Disheveled 乱れ髪",
             "Disheveled 乱れ髪 + Headband 鉢巻", "Sedge Hat 菅笠", "Jingasa 陣笠", "Kabuto 兜"]
 sam_head_random = []
-sam_head_nums = [250, 226, 193, 164, 139, 120, 100, 50, 15]
+sam_head_nums = [280, 246, 193, 174, 139, 130, 100, 50, 15]
 # TODO make sure to add, if attire != armor, check next in the sam_head_random list, if not kabuto, swap (else increment position)
 
 head_musha = ["Bun 髷", "Bun 髷 + Headband 鉢巻", "Ponytail 下げ髪", "Ponytail 下げ髪 + Headband 鉢巻", "Loose 垂髪",
             "Loose 垂髪 + Headband 鉢巻", "Sedge Hat 菅笠", "Jingasa 陣笠", "Kabuto 兜"]
 musha_head_random = []
-musha_head_nums = [250, 226, 193, 164, 140, 120, 100, 50, 15]
+musha_head_nums = [250, 226, 193, 168, 150, 120, 100, 50, 15]
 # TODO make sure to add, if attire != armor, check next in the sam_head_random list, if not kabuto, swap (else increment position)
 
 head_ape = ["Short 短毛", "Short 短毛 + Headband 鉢巻", "Messy ボサボサ", "Messy ボサボサ + Headband 鉢巻", "Spiked ツンツン",
@@ -48,29 +50,31 @@ ape_head_nums = [250, 226, 193, 165, 140, 120, 99, 50, 15]
 
 attire = ["Kimono Flowers 着物花", "Kimono Waves 着物波", "Kimono Clouds 着物曇", "Street Clothes 街着", "Armor 鎧"]
 attire_random = []
-attire_nums = [998, 844, 744, 644, 543]  # TODO make sure to go over all ronin traits and subtract.
+attire_nums = [1001, 849, 749, 649, 549]  # TODO make sure to go over all ronin traits and subtract.
 
 earring_left = ["None", "Death 死", "Fusion 融合 1", "WoV V界 1", "Hunter 狩り", "Slayer 鬼滅 1"]  # some are right ear only! check if certain earrings in randomizer, then add left one as well.
 earring_random = []
-earring_nums = [1800, 599, 450, 379, 323, 222]
+earring_nums = [1800, 599, 454, 379, 328, 222]
 
 eyes = ["Relaxed 静か", "Angry 怒り", "Akuma 悪魔", "Sharingan 写輪眼", "Twilir トワイリル", "Ghoul 喰種", "Saiké サイケ"]
 eyes_random = []
-eyes_nums = [1300, 949, 626, 449, 250, 150, 49]
+eyes_nums = [1320, 949, 648, 459, 255, 150, 49]
 
 face = ["Plain 普通", "Himura Scar 緋村の傷", "Ninja 忍び", "Oni 鬼",
         "Armored 面頬", "Ghoul 喰種", "Golden Oni 金の鬼", "Kitsune 狐"]
+face_weights = [31.8, 19.7, 15.8, 13.2, 11.9, 7.6, 0, 0]
 face_random = []
-face_nums = [1127, 699, 599, 499, 449, 290, 100, 10]
+face_nums = [1147, 699, 609, 519, 469, 290, 100, 10]
 
-weapons = ["Katana 刀", "Bow 弓", "Katana 刀", "Niten-Ichi-ryū 二天一流",
+weapons = ["Katana 刀", "Bow 弓", "Niten-Ichi-ryū 二天一流",
           "Boar Blades 猪の剣", "SHAman Bow シャマ弓", "Demon Sword 妖刀"]
+weapons_weights = [40, 33.1, 24.1, 2.8, 0, 0]
 weapons_random = []
-weapons_nums = [1531, 1200, 900, 99, 24, 19]
+weapons_nums = [1531, 1250, 950, 109, 24, 19]
 
 elements = ["None", "Air 風", "Earth 地", "Water 水", "Fire 火", "Lightning 雷"]
 elements_random = []
-elements_num = [3000, 300, 219, 151, 99, 4]
+elements_num = [2615, 300, 219, 161, 99, 4]  # 3000-385 for first 355 not having any. append afterward
 
 
 def swap_helmet(char_num, char):
@@ -113,7 +117,6 @@ def gen_char_list(num):
 
     for i in range(355):
         chars_list.insert(0, "Ape 猿")
-    print("len = " + str(len(chars_list)))
 
 
 def gen_lists(num):
@@ -173,6 +176,17 @@ def gen_lists(num):
     random.shuffle(weapons_random)
     random.shuffle(elements_random)
 
+    for i in range(385):
+        elements_random.insert(0, "None")
+
+    for i in range(385):
+        if weapons_random[i] == "Demon Sword 妖刀":
+            # swap with first non demon sword after 355
+            for j in range(386, len(weapons_random)):
+                if weapons_random[j] != "Demon Sword 妖刀":
+                    weapons_random[i], weapons_random[j] = weapons_random[j], weapons_random[i]
+                    break
+
 
 def generate_samurai(char_num):
     # need to add left earring with checks!!
@@ -180,15 +194,20 @@ def generate_samurai(char_num):
     new_samurai = []  # dict to hold traits for single samurai
 
     character = chars_list[char_num]
+    if character == "Samurai 侍":
+        chars_tracker[0] += 1
+    if character == "Musha 武者":
+        chars_tracker[1] += 1
+    if character == "Ape 猿":
+        chars_tracker[2] += 1
+
     new_samurai.append(character)
 
     background = bg_random[char_num]
     new_samurai.append(background)
 
     element = elements_random[char_num]
-    if element != "None":
-        # element back goes in
-        new_samurai.append(element)
+    new_samurai.append(element)
 
     clan = clan_random[char_num]
     # Banner signifies the clan the samurai belongs to.
@@ -206,46 +225,82 @@ def generate_samurai(char_num):
     earring = earring_random[char_num]
     new_samurai.append(earring)
 
-    if earring in ["Fusion 融合", "Slayer 鬼滅 1", "WoV V界 1"]:
+    if earring in ["Fusion 融合", "Slayer 鬼滅 1", "WoV V界 1"] and character != "Ape 猿":
         earring = earring.replace(earring[len(earring) - 1], '2')  # replace last char from 1 to 2
         new_samurai.append(earring)  # Add the right earring
     else:
         new_samurai.append("None")
 
-    # if character == "Ape 猿":
+    eye = eyes_random[char_num]
+    new_samurai.append(eye)
+
+    char_face = face_random[char_num]
+    new_samurai.append(char_face)
 
     if character == "Samurai 侍":
-        if clothes != "Armor 鎧" and sam_head_random[char_num] == "Kabuto 兜":
-            swap_helmet(char_num, character)
-        head = sam_head_random[char_num]
+        index = char_num-chars_tracker[1]-chars_tracker[2]
+        if clothes != "Armor 鎧" and sam_head_random[index] == "Kabuto 兜":
+            swap_helmet(index, character)
+        head = sam_head_random[index]
         new_samurai.append(head)
 
     if character == "Musha 武者":
-        if clothes != "Armor 鎧" and musha_head_random[char_num] == "Kabuto 兜":
-            swap_helmet(char_num, character)
-        head = musha_head_random[char_num]
+        index = char_num-chars_tracker[0]-chars_tracker[2]
+        if clothes != "Armor 鎧" and musha_head_random[index] == "Kabuto 兜":
+            swap_helmet(index, character)
+        head = musha_head_random[index]
         new_samurai.append(head)
 
     if character == "Ape 猿":
-        if clothes != "Armor 鎧" and ape_head_random[char_num] == "Kabuto 兜":
-            swap_helmet(char_num, character)
-        head = ape_head_random[char_num]
+        index = char_num-chars_tracker[0]-chars_tracker[1]
+        if clothes != "Armor 鎧" and ape_head_random[index] == "Kabuto 兜":
+            swap_helmet(index, character)
+        head = ape_head_random[index]
         new_samurai.append(head)
+
 
 
 
 
     # print(new_samurai)
     tups = tuple(new_samurai)
-    print(tups)
-    print(char_num)
+    # print(tups)
+    # (char_num)
     key = hash(tups)
 
     if key in traits_list_hash:
         print("CONFLICT")
-        return generate_samurai(char_num)
+
+        new_samurai = reroll(new_samurai, char_num)
+
+        tups = tuple(new_samurai)
+        # print("new tups")
+        # print(char_num)
+        key = hash(tups)
+
+        if key not in traits_list_hash:
+            print(" Definitely RESOLVED")
+        # return generate_samurai(char_num)
+        # return tups
+        return tups
     else:
         return tups
+
+
+def reroll(new_samurai, char_num):
+    new_samurai[5] = random.choices(weapons, weapons_weights)[0]
+    new_samurai[9] = random.choices(face, face_weights)[0]
+
+    tups = tuple(new_samurai)
+    # print("new tups")
+    # print(char_num)
+    key = hash(tups)
+    if key not in traits_list_hash:
+        print("RESOLVED")
+    else:
+        reroll(new_samurai, char_num)
+
+    return new_samurai
 
 
 def randomize_all(num_to_gen):
