@@ -4,11 +4,11 @@ import json
 def samurai(traits_list):
 
     # Japanese for none: 無し
-    for i in range(1, len(traits_list)):
+    for i in range(len(traits_list)):
         # token_id = i['tokenId']
-        token_id = i
+        token_id = i+1
         token = {
-            "image": "UkiyoeWarrior#{}.png".format(i),
+            "image": "UkiyoeWarrior#{}.png".format(token_id),
             "tokenId": token_id,
             "name": "Ukiyoe Warriors" + ' ' + str(token_id),
             "attributes": []

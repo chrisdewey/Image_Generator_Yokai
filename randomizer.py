@@ -52,11 +52,11 @@ face_weights = [31.8, 19.7, 15.8, 13.2, 11.9, 7.6, 0, 0]
 face_random = []
 face_nums = [1147, 699, 609, 519, 469, 290, 100, 10]
 
-weapons = ["Katana 刀", "Bow 弓", "Niten-Ichi-ryū 二天一流",
-          "Boar Blades 猪の剣", "SHAman Bow シャマ弓", "Demon Sword 妖刀"]
+weapons = ["Katana 刀", "Bow 弓", "Niten-Ichiryū 二天一流",
+           "Boar Blades 猪の剣", "SHAman Bow シャマ弓", "Demon Sword 妖刀"]
 weapons_weights = [40, 33.1, 24.1, 2.8, 0, 0]
 weapons_random = []
-weapons_nums = [1341, 1010, 900, 99, 24, 19]
+weapons_nums = [1391, 1060, 840, 99, 24, 19]
 
 elements = ["None", "Air 風", "Earth 地", "Water 水", "Fire 火", "Lightning 雷"]
 elements_random = []
@@ -164,22 +164,24 @@ def gen_lists(num):
 
     for i in range(385):
         elements_random.insert(0, "None")
-
+    """
     for i in range(385):
         if weapons_random[i] == "Demon Sword 妖刀":
             # swap with first non demon sword after 355
-            for j in range(386, len(weapons_random)):
+            for j in range(686, len(weapons_random)-1):
                 if weapons_random[j] != "Demon Sword 妖刀":
                     weapons_random[i], weapons_random[j] = weapons_random[j], weapons_random[i]
                     break
+    """
+    for i in range(140):
+        weapons_random.insert(0, "Katana 刀")
+        weapons_random.insert(0, "Bow 弓")
+        if i > 79:
+            weapons_random.insert(0, "Niten-Ichiryū 二天一流")
 
     for i in range(371):
         earring_random.insert(0, "None")
     earring_random.insert(0, "Death 死")
-
-    for i in range(190):
-        weapons_random.insert(0, "Katana 刀")
-        weapons_random.insert(0, "Bow 弓")
 
     for i in range(105):
         bg_random.insert(0, "Summer 夏")
@@ -195,8 +197,6 @@ def gen_lists(num):
             eyes_random.insert(0, "Angry 怒り")
             if i > 149:
                 eyes_random.insert(0, "Akuma 悪魔")
-    print("check")
-    print(len(eyes_random))
 
 
 def generate_samurai(char_num):
@@ -228,6 +228,7 @@ def generate_samurai(char_num):
     clothes = attire_random[char_num]
     new_samurai.append(clothes)
 
+    #print(weapons_random)
     weapon = weapons_random[char_num]
     new_samurai.append(weapon)
 
@@ -313,5 +314,8 @@ def randomize_all(num_to_gen):
 
         traits_list_hash.add(hash(new_samurai))
         traits_list.append(new_samurai)
+
+    with open("traits.txt", "w", encoding='utf-8') as output:
+        output.write(str(traits_list))
 
     return traits_list

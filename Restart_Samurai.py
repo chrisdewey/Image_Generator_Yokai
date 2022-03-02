@@ -1,6 +1,7 @@
 # import os
 from PIL import Image
 import numpy
+import ast
 from blend_modes import addition, multiply, overlay
 
 
@@ -87,10 +88,15 @@ def clean_clan(clan_dirty):
         raise IOError("Error in cleaning clan name.")
 
 
-def generate(traits_list):
-    samurai_number = 1
+def generate(traits_list_txt, restart_from):
+    samurai_number = restart_from
 
-    for traits in traits_list:
+    with open(traits_list_txt, 'r', encoding='utf-8') as f:
+        traits_list = ast.literal_eval(f.read())
+
+    for index, traits in enumerate(traits_list):
+        if index < restart_from-1:
+            continue
         if traits[0] == "Samurai 侍":
             print(samurai_number)
             clan_dirty = traits[3]
