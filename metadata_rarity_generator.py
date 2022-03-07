@@ -1,6 +1,4 @@
 import json
-import os
-import operator
 
 traits_warrior = {}
 traits_background = {}
