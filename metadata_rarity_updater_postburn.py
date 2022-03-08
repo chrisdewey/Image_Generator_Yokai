@@ -12,8 +12,14 @@ traits_face = {}
 traits_eyes = {}
 
 path_to_json = 'output/metadata/'
-list_of_burns = [3114, 1, 2, 3, 4, 5]
+
+burned_file = open('tokenToBurn.txt')
+list_of_burns = burned_file.read().splitlines()
+int_map = map(int, list_of_burns)
+list_of_burns = list(int_map)
+
 total_after_burn = 3777 - len(list_of_burns)
+
 for file_name in range(1, 3778):
     if file_name in list_of_burns:
         continue
