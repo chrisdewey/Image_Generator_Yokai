@@ -4,8 +4,9 @@ import random
 traits_list_hash = set()
 traits_list = []
 
-chars_tracker = [0, 0, 0]  # dict holding vars containing all chars. 0sam 1mus 2ape
+chars_tracker = [0, 0, 0, 0]  # dict holding vars containing all chars. 0kappa 1okami 2oni 3tengu
 
+# Yōkai 妖怪
 characters = 4440
 chars_list = []
 
@@ -21,19 +22,19 @@ bg_nums = [803, 787, 612, 608, 462, 355, 263, 240, 133, 128, 53]  # - ronin trai
 # New ratio instead of 1533, 1264, 870, 777 total. 1532 : 383 .. 1264 : 316 .. 872 : 218 .. 776 : 194
 kappa_color = ["Green 緑", "Blue 青", "Black 黒", "White 白"]
 kappa_color_random = []
-kappa_color_nums = [383, 316, 218, 194]
+kappa_color_nums = [383, 316, 218, 193]
 
 okami_color = ["Brown 茶色", "Slate Blue 炭青", "Black 黒", "White 白"]
 okami_color_random = []
-okami_color_nums = [383, 316, 218, 194]
+okami_color_nums = [383, 316, 218, 193]
 
 oni_color = ["Pale Red 薄い赤", "Purple 紫", "Black 黒", "White 白"]
 oni_color_random = []
-oni_color_nums = [383, 316, 218, 194]
+oni_color_nums = [383, 316, 218, 193]
 
 tengu_color = ["Red 赤", "Blue 青", "Black 黒", "White 白"]
 tengu_color_random = []
-tengu_color_nums = [383, 316, 218, 194]
+tengu_color_nums = [383, 316, 218, 193]
 
 # Head 頭
 head = ["Plain 普通", "Sedge Hat 菅笠", "Cursed Hat 祟り笠", "Antlers 枝角 (Forest Nation)", "Veking Helmet ヴィキングメット",
@@ -42,7 +43,7 @@ head_random = []
 head_nums = [1200, 700, 600, 500, 400, 394, 300, 250, 100]
 # TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
 
-# Body 体
+# Body 体  TODO: twilir gets eyes connected. the eyes are not a trait. just files (except goken helm, they're covered)
 body = ["Plain 普通", "Scarred 傷", "Kimono 着物", "Hakui Kimono 白衣", "Twilir トワイリル"]
 body_random = []
 body_nums = [1285, 1002, 840, 801, 516]
@@ -64,6 +65,8 @@ companion = ["None 無し", "Onibi 鬼火", "Kitsune 狐", "Kodama 木霊", "Koi
 companion_random = []
 companion_nums = []
 
+# TODO: okay. So maybe make diamond hand out of here and add first to list to ensure 100 traits, not about 100?? wait
+#   maybe not. Think it's already set nums my dood.
 # Hand 手
 hand = ["Spiked Club 金棒", "Naginata 薙刀", "Beast Mask 獣の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
         "Ramen Bowl ラーメン鉢", "Boar Mask 猪の面 (NPO)", "SHAman Staff シャマ杖", "Saké 酒", "Kaonashi Mask 顔無し面",
@@ -103,7 +106,8 @@ def swap_helmet(char_num, char):
     raise IOError("There was no helmet left for it to be switched to!")
 
 
-def gen_char_list(num):
+# Yōkai 妖怪
+def gen_char_list():
     total_kappa = 1110
     total_okami = 1110
     total_oni = 1110
@@ -120,7 +124,7 @@ def gen_char_list(num):
     random.shuffle(chars_list)
 
 
-def gen_lists(num):
+def gen_lists():
     for i in range(len(bg_nums)):
         for j in range(bg_nums[i]):
             bg_random.append(bg[i])
@@ -182,114 +186,89 @@ def gen_lists(num):
     random.shuffle(hand_random)
 
 
-    for i in range(140):
-        weapons_random.insert(0, "Katana 刀")
-        weapons_random.insert(0, "Bow 弓")
-        if i > 79:
-            weapons_random.insert(0, "Niten-Ichiryū 二天一流")
+def generate_yokai(char_num):
+    new_yokai = []  # dict to hold traits for single samurai
 
-    for i in range(371):
-        earring_random.insert(0, "None")
-    earring_random.insert(0, "Death 死")
-
-    for i in range(105):
-        bg_random.insert(0, "Summer 夏")
-        bg_random.insert(0, "Autumn 秋")
-    for i in range(60):
-        bg_random.insert(0, "Winter 冬")
-        bg_random.insert(0, "Spring 春")
-        bg_random.insert(0, "Fuji 富士")
-
-    for i in range(200):
-        eyes_random.insert(0, "Relaxed 静か")
-        if i > 99:
-            eyes_random.insert(0, "Angry 怒り")
-            if i > 149:
-                eyes_random.insert(0, "Akuma 悪魔")
-
-
-def generate_samurai(char_num):
-    new_samurai = []  # dict to hold traits for single samurai
-
+    # For color, the item is popped from the list so that the next iter, the first item in list is new
     character = chars_list[char_num]
-    if character == "Samurai 侍":
+    if character == "Kappa 河童":
         chars_tracker[0] += 1
-    if character == "Musha 武者":
+        color = kappa_color_random.pop(0)
+    if character == "Ōkami 狼":
         chars_tracker[1] += 1
-    if character == "Ape 猿":
+        color = okami_color_random.pop(0)
+    if character == "Oni 鬼":
         chars_tracker[2] += 1
+        color = oni_color_random.pop(0)
+    if character == "Tengu 天狗":
+        chars_tracker[3] += 1
+        color = tengu_color_random.pop(0)
 
-    new_samurai.append(character)
+    new_yokai.append(character)
 
     background = bg_random[char_num]
-    new_samurai.append(background)
+    new_yokai.append(background)
 
-    element = elements_random[char_num]
-    new_samurai.append(element)
+    new_yokai.append(color)
 
-    clan = clan_random[char_num]
-    # Banner signifies the clan the samurai belongs to.
-    new_samurai.append(clan)
+    head1 = head_random[char_num]
+    new_yokai.append(head1)
 
-    # CHARACTERS STARTS HERE 1 attire, 2, weapons, 3, earrings, eyes, face, head
+    body1 = body_random[char_num]
+    new_yokai.append(body1)
 
-    # Choose clothing. If Kimono, then return append type. Else append armor.
-    clothes = attire_random[char_num]
-    new_samurai.append(clothes)
+    face1 = face_random[char_num]
+    new_yokai.append(face1)
 
-    #print(weapons_random)
-    weapon = weapons_random[char_num]
-    new_samurai.append(weapon)
+    earring1 = earring_random[char_num]
+    new_yokai.append(earring1)
 
-    earring = earring_random[char_num]
-    new_samurai.append(earring)
+    companion1 = companion_random[char_num]
+    new_yokai.append(companion1)
 
+    hand1 = hand_random[char_num]
+    new_yokai.append(hand1)
+
+
+    """
     if earring in ["Fusion 融合", "Slayer 鬼滅 1", "WoV V界 1"] and character != "Ape 猿":
         earring = earring.replace(earring[len(earring) - 1], '2')  # replace last char from 1 to 2
-        new_samurai.append(earring)  # Add the right earring
+        new_yokai.append(earring)  # Add the right earring
     else:
-        new_samurai.append("None")
-
-    eye = eyes_random[char_num]
-    new_samurai.append(eye)
-
-    char_face = face_random[char_num]
-    new_samurai.append(char_face)
+        new_yokai.append("None")
+    
 
     if character == "Samurai 侍":
         index = char_num-chars_tracker[1]-chars_tracker[2]
         if clothes != "Armor 鎧" and sam_head_random[index] == "Kabuto 兜":
             swap_helmet(index, character)
         head = sam_head_random[index]
-        new_samurai.append(head)
+        new_yokai.append(head)
 
     if character == "Musha 武者":
         index = char_num-chars_tracker[0]-chars_tracker[2]
         if clothes != "Armor 鎧" and musha_head_random[index] == "Kabuto 兜":
             swap_helmet(index, character)
         head = musha_head_random[index]
-        new_samurai.append(head)
+        new_yokai.append(head)
 
     if character == "Ape 猿":
         index = char_num-chars_tracker[0]-chars_tracker[1]
         if clothes != "Armor 鎧" and ape_head_random[index] == "Kabuto 兜":
             swap_helmet(index, character)
         head = ape_head_random[index]
-        new_samurai.append(head)
+        new_yokai.append(head)
+    """
 
-
-
-
-
-    tups = tuple(new_samurai)
+    tups = tuple(new_yokai)
     key = hash(tups)
 
     if key in traits_list_hash:
         print("CONFLICT")
 
-        new_samurai = reroll(new_samurai, char_num)
+        # new_yokai = reroll(new_yokai, char_num)
 
-        tups = tuple(new_samurai)
+        tups = tuple(new_yokai)
         key = hash(tups)
 
         if key not in traits_list_hash:
@@ -299,6 +278,7 @@ def generate_samurai(char_num):
         return tups
 
 
+# TODO: fix this broth. deprecated changes
 def reroll(new_samurai, char_num):
     new_samurai[5] = random.choices(weapons, weapons_weights)[0]
     new_samurai[9] = random.choices(face, face_weights)[0]
@@ -314,15 +294,15 @@ def reroll(new_samurai, char_num):
 
 
 def randomize_all(num_to_gen):
-    gen_lists(num_to_gen)
+    gen_lists()
 
-    gen_char_list(num_to_gen)
+    gen_char_list()
 
     for i in range(num_to_gen):
-        new_samurai = generate_samurai(i)
+        new_yokai = generate_yokai(i)
 
-        traits_list_hash.add(hash(new_samurai))
-        traits_list.append(new_samurai)
+        traits_list_hash.add(hash(new_yokai))
+        traits_list.append(new_yokai)
 
     with open("traits.txt", "w", encoding='utf-8') as output:
         output.write(str(traits_list))
