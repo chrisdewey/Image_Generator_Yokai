@@ -14,8 +14,7 @@ chars_list = []
 bg = ["Navy 濃い青", "Light Blue 水色", "Pink 桃色", "Yellow 黄", "Green 緑", "Red 赤",
       "Orange 橙色", "Gold 金", "Platinum 白金", "Amethyst 紫水晶", "Saiké サイケ"]
 bg_random = []
-bg_nums = [803, 787, 612, 608, 462, 355, 263, 240, 133, 128, 53]  # - ronin traits. do for all traits. done.
-# TODO: DETELE traits used for legendaries!
+bg_nums = [802, 786, 611, 607, 462, 355, 263, 240, 133, 128, 53]  # - ronin traits. do for all traits. done.
 
 # COLOR 色
 # different color set for each yokai char
@@ -37,73 +36,45 @@ tengu_color_random = []
 tengu_color_nums = [383, 316, 218, 193]
 
 # Head 頭
-head = ["Plain 普通", "Sedge Hat 菅笠", "Cursed Hat 祟り笠", "Antlers 枝角 (Forest Nation)", "Veking Helmet ヴィキングメット",
-        "Third Eye 顱頂眼", "Goken Helm 護拳甲" "Nezuko Horn 禰豆子の角", "Dark Goken 闇の護拳"]
+head = ["Plain 普通", "Nezuko Horn 禰豆子の角", "Third Eye 顱頂眼", "Sedge Hat 菅笠", "Antlers 枝角",
+        "Veking Helmet ヴィキングメット", "Goken Helm 護拳甲", "Cursed Hat 祟り笠", "Dark Goken 闇の護拳"]
 head_random = []
-head_nums = [1200, 700, 600, 500, 400, 394, 300, 250, 100]
+head_nums = [1238, 748, 529, 471, 429, 428, 333, 240, 24]
 # TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
 
 # Body 体  TODO: twilir gets eyes connected. the eyes are not a trait. just files (except goken helm, they're covered)
 body = ["Plain 普通", "Scarred 傷", "Kimono 着物", "Hakui Kimono 白衣", "Twilir トワイリル"]
 body_random = []
-body_nums = [1285, 1002, 840, 801, 516]
+body_nums = [1584, 1051, 889, 700, 216]
 
 # Face 顔
 face = ["Plain 普通", "Face Paint 表面ペンキ", "Cloth Mask 布マスク", "Slit Mouth 口裂け", "Sukuna Eyes 宿儺眼",
         "Ninjaz Ghoul Mask 忍者グール面"]
 face_random = []
-face_nums = [1138, 951, 831, 755, 669, 100]
+face_nums = [1137, 950, 830, 754, 669, 100]
 
 # Earring 耳飾り
 earring = ["None 無し", "World of V V界", "Death 死", "Hanafuda 花札", "Flamingo 紅鶴", "Stardust 星屑",
            "Union Card 組合員証", "Fusion 融合", "Genesis 起源"]
 earring_random = []
-earring_nums = [1000, 700, 600, 500, 450, 394, 350, 250, 200]
+earring_nums = [999, 699, 599, 499, 450, 394, 350, 250, 200]
 
 # Companion 仲間
-companion = ["None 無し", "Onibi 鬼火", "Kitsune 狐", "Kodama 木霊", "Koi 鯉", "Tatsu 龍 (dragon)"]
+companion = ["None 無し", "Onibi 鬼火", "Kitsune 狐", "Kodama 木霊", "Koi 鯉", "Tatsu 龍"]
 companion_random = []
-companion_nums = []
+companion_nums = [2444, 578, 522, 444, 408, 44]
 
-# TODO: okay. So maybe make diamond hand out of here and add first to list to ensure 100 traits, not about 100?? wait
-#   maybe not. Think it's already set nums my dood.
 # Hand 手
-hand = ["Spiked Club 金棒", "Naginata 薙刀", "Beast Mask 獣の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
-        "Ramen Bowl ラーメン鉢", "Boar Mask 猪の面 (NPO)", "SHAman Staff シャマ杖", "Saké 酒", "Kaonashi Mask 顔無し面",
+hand = ["Spiked Club 金棒", "Naginata 薙刀", "Boar Mask 猪の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
+        "Ramen Bowl ラーメン鉢", "Beast Mask 獣の面", "SHAman Staff シャマ杖", "Saké 酒", "Kaonashi Mask 顔無し面",
         "Diamond Hand 金剛者", "Guardian\'s Scythe 守護人の釜"]
 hand_random = []
-hand_nums = [409, 384, 371, 360, 328, 310, 283, 270, 240, 232, 100, 75]
+hand_nums = [610, 547, 495, 479, 426, 416, 377, 361, 321, 233, 100, 75]
 
 # Chikara 力 1,111
 chikara = ["None 無し", "Spirit Fire 神火", "Demon Energy 妖エネ", "Ice 氷", "Plant 草木", "Shadow 影"]
 chikara_random = []
-chikara_nums = [3333, 310, 260, 227, 200, 115]
-
-
-# TODO: del. deprecated.
-def swap_helmet(char_num, char):
-    if char == "Samurai 侍":
-        for i in range(char_num+1, len(sam_head_random)):
-            if sam_head_random[i] != "Kabuto 兜":
-                new_index = i
-                sam_head_random[char_num], sam_head_random[i] = sam_head_random[i], sam_head_random[char_num]
-                return
-
-    if char == "Musha 武者":
-        for i in range(char_num+1, len(musha_head_random)):
-            if musha_head_random[i] != "Kabuto 兜":
-                new_index = i
-                musha_head_random[char_num], musha_head_random[i] = musha_head_random[i], musha_head_random[char_num]
-                return
-
-    if char == "Ape 猿":
-        for i in range(char_num+1, len(ape_head_random)):
-            if ape_head_random[i] != "Kabuto 兜":
-                new_index = i
-                ape_head_random[char_num], ape_head_random[i] = ape_head_random[i], ape_head_random[char_num]
-                return
-
-    raise IOError("There was no helmet left for it to be switched to!")
+chikara_nums = [3333, 309, 259, 226, 198, 115]
 
 
 # Yōkai 妖怪
@@ -186,6 +157,7 @@ def gen_lists():
     random.shuffle(hand_random)
 
 
+# TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
 def generate_yokai(char_num):
     new_yokai = []  # dict to hold traits for single samurai
 
@@ -229,44 +201,13 @@ def generate_yokai(char_num):
     hand1 = hand_random[char_num]
     new_yokai.append(hand1)
 
-
-    """
-    if earring in ["Fusion 融合", "Slayer 鬼滅 1", "WoV V界 1"] and character != "Ape 猿":
-        earring = earring.replace(earring[len(earring) - 1], '2')  # replace last char from 1 to 2
-        new_yokai.append(earring)  # Add the right earring
-    else:
-        new_yokai.append("None")
-    
-
-    if character == "Samurai 侍":
-        index = char_num-chars_tracker[1]-chars_tracker[2]
-        if clothes != "Armor 鎧" and sam_head_random[index] == "Kabuto 兜":
-            swap_helmet(index, character)
-        head = sam_head_random[index]
-        new_yokai.append(head)
-
-    if character == "Musha 武者":
-        index = char_num-chars_tracker[0]-chars_tracker[2]
-        if clothes != "Armor 鎧" and musha_head_random[index] == "Kabuto 兜":
-            swap_helmet(index, character)
-        head = musha_head_random[index]
-        new_yokai.append(head)
-
-    if character == "Ape 猿":
-        index = char_num-chars_tracker[0]-chars_tracker[1]
-        if clothes != "Armor 鎧" and ape_head_random[index] == "Kabuto 兜":
-            swap_helmet(index, character)
-        head = ape_head_random[index]
-        new_yokai.append(head)
-    """
-
     tups = tuple(new_yokai)
     key = hash(tups)
 
     if key in traits_list_hash:
         print("CONFLICT")
 
-        # new_yokai = reroll(new_yokai, char_num)
+        new_yokai = reroll(new_yokai, char_num)
 
         tups = tuple(new_yokai)
         key = hash(tups)
@@ -278,19 +219,26 @@ def generate_yokai(char_num):
         return tups
 
 
-# TODO: fix this broth. deprecated changes
-def reroll(new_samurai, char_num):
-    new_samurai[5] = random.choices(weapons, weapons_weights)[0]
-    new_samurai[9] = random.choices(face, face_weights)[0]
+# TODO: BUG here with recursion. If trait isn't fixed can infinite loop. rerunning can avoid the issue since only needed
+#   once.
+def reroll(new_yokai, char_num):
+    next_char = char_num + 1
 
-    tups = tuple(new_samurai)
+    if (new_yokai[3] not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]
+            and head_random[next_char]not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]
+            and new_yokai[3] != head_random[next_char]):
+        trouble_trait = new_yokai[3]
+        new_yokai[3] = head_random[next_char]
+        head_random[next_char] = trouble_trait
+
+    tups = tuple(new_yokai)
     key = hash(tups)
     if key not in traits_list_hash:
         print("RESOLVED")
     else:
-        reroll(new_samurai, char_num)
+        reroll(new_yokai, char_num)
 
-    return new_samurai
+    return new_yokai
 
 
 def randomize_all(num_to_gen):

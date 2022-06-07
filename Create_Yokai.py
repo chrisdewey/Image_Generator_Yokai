@@ -68,33 +68,13 @@ def mask_textures(base):
     return mask_texture
 
 
-def clean_clan(clan_dirty):
-    if clan_dirty == "Ashikaga 足利":
-        return "Ashikaga"
-    elif clan_dirty == "Hōjō 北条":
-        return "Hojo"
-    elif clan_dirty == "Imagawa 今川":
-        return "Imagawa"
-    elif clan_dirty == "Minamoto 源":
-        return "Minamoto"
-    elif clan_dirty == "Sanada 真田":
-        return "Sanada"
-    elif clan_dirty == "Taira 平":
-        return "Taira"
-    elif clan_dirty == "Takeda 武田":
-        return "Takeda"
-    else:
-        raise IOError("Error in cleaning clan name.")
-
-
 def generate(traits_list):
     samurai_number = 1
 
     for traits in traits_list:
         if traits[0] == "Samurai 侍":
             print(samurai_number)
-            clan_dirty = traits[3]
-            clan = clean_clan(clan_dirty)
+
 
             background = traits[1]
 
