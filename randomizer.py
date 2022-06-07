@@ -59,7 +59,7 @@ earring = ["None 無し", "World of V V界", "Death 死", "Hanafuda 花札", "Fl
 earring_random = []
 earring_nums = [999, 699, 599, 499, 450, 394, 350, 250, 200]
 
-# Companion 仲間
+# Companion 仲間  == Nakama 仲間
 companion = ["None 無し", "Onibi 鬼火", "Kitsune 狐", "Kodama 木霊", "Koi 鯉", "Tatsu 龍"]
 companion_random = []
 companion_nums = [2444, 578, 522, 444, 408, 44]
@@ -175,7 +175,7 @@ def generate_yokai(char_num):
     if character == "Tengu 天狗":
         chars_tracker[3] += 1
         color = tengu_color_random.pop(0)
-
+    # Order = [char, bg, color, head, body, face, earring, companion, hand]
     new_yokai.append(character)
 
     background = bg_random[char_num]

@@ -69,27 +69,8 @@ def mask_textures(base):
     return mask_texture
 
 
-def clean_clan(clan_dirty):
-    if clan_dirty == "Ashikaga 足利":
-        return "Ashikaga"
-    elif clan_dirty == "Hōjō 北条":
-        return "Hojo"
-    elif clan_dirty == "Imagawa 今川":
-        return "Imagawa"
-    elif clan_dirty == "Minamoto 源":
-        return "Minamoto"
-    elif clan_dirty == "Sanada 真田":
-        return "Sanada"
-    elif clan_dirty == "Taira 平":
-        return "Taira"
-    elif clan_dirty == "Takeda 武田":
-        return "Takeda"
-    else:
-        raise IOError("Error in cleaning clan name.")
-
-
 def generate(traits_list_txt, restart_from):
-    samurai_number = restart_from
+    yokai_number = restart_from
 
     with open(traits_list_txt, 'r', encoding='utf-8') as f:
         traits_list = ast.literal_eval(f.read())
@@ -97,13 +78,14 @@ def generate(traits_list_txt, restart_from):
     for index, traits in enumerate(traits_list):
         if index < restart_from-1:
             continue
-        if traits[0] == "Samurai 侍":
-            print(samurai_number)
-            clan_dirty = traits[3]
-            clan = clean_clan(clan_dirty)
+        # Order = [char, bg, color, head, body, face, earring, companion, hand]
+        if traits[0] == "Kappa 河童":  # Start with Kappa
+            print(yokai_number)
 
             background = traits[1]
 
+            """
+            # Foreground elements
             if background == "Autumn 秋":
                 foreground = Image.open('images/Ukiyoe Warriors/- Backgrounds 背景 -/Foreground Elements/Autumn_ Falling Leaves.png')
             elif background == "Spring 春":
@@ -120,6 +102,7 @@ def generate(traits_list_txt, restart_from):
                     'images/Ukiyoe Warriors/- Backgrounds 背景 -/Foreground Elements/(Inverse) Saiké_ Splatter.png')
             else:
                 foreground = None
+            
 
             if traits[2] != "None":
                 element_back = Image.open('images/Ukiyoe Warriors/- Elements 元素 -/{}/Back.png'.format(traits[2]))
@@ -127,7 +110,20 @@ def generate(traits_list_txt, restart_from):
             else:
                 element_back = None
                 element_front = None
+            """
 
+            color = traits[2]
+            yokai = traits[0]
+            hand_clothing = traits[4]  # TODO if its twilir then == plain?? check with chase for confirmation.
+            body = Image.open('/input/{0}/Body 体/{1}/{2}.png'.format(yokai, traits[4], color))
+            head = Image.open('/input/{0}/Head 頭/{1}.png'.format(yokai, traits[3]))
+            face = Image.open('/input/{0}/Face 顔/{1}.png'.format(yokai, traits[5]))
+            earring = Image.open('/input/{0}/Earring 耳飾り/{1}.png'.format(yokai, traits[6]))
+            companion = Image.open('/input/- Nakama 仲間 -/{}.png'.format(traits[6]))
+            hand = Image.open('/input/{0}/Hand 手/{1}/{2}/{3}.png'.format(yokai, traits[8], hand_clothing, color))
+            weapon = Image.open('/input/{0}/Hand 手/{1}/{2}.png'.format(yokai, traits[8], traits[8]))
+
+            # TODO delete most of beneath after finnished.
             banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/{}.png'.format(traits[3]))
 
             skin = Image.open('images/Ukiyoe Warriors/Samurai 侍/Skin Base.png')
@@ -223,11 +219,11 @@ def generate(traits_list_txt, restart_from):
                 head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Front.png'.format(head_trait))
                 head_back = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Back.png'.format(head_trait))
 
-            base = Image.open('images/Ukiyoe Warriors/- Backgrounds 背景 -/{}.png'.format(background))  # Base == bg
+            base = Image.open('/input/- Background 背景 -/{}.png'.format(background))  # Base == bg
             base = base.convert('RGBA')
 
-            if element_back is not None:
-                base.paste(element_back, element_back)
+            # if element_back is not None:
+            #     base.paste(element_back, element_back)
 
             base.paste(banner, banner)  # clan banner
 
@@ -280,11 +276,11 @@ def generate(traits_list_txt, restart_from):
 
             base = overlay_textures(base)
 
-            base.save("output/UkiyoeWarrior#{}.png".format(samurai_number))
-            samurai_number += 1
+            base.save("output/UkiyoeWarrior#{}.png".format(yokai_number))
+            yokai_number += 1
 
         elif traits[0] == "Musha 武者":
-            print(samurai_number)
+            print(yokai_number)
             clan_dirty = traits[3]
             clan = clean_clan(clan_dirty)
 
@@ -475,10 +471,10 @@ def generate(traits_list_txt, restart_from):
 
             base = overlay_textures(base)
 
-            base.save("output/UkiyoeWarrior#{}.png".format(samurai_number))
-            samurai_number += 1
+            base.save("output/UkiyoeWarrior#{}.png".format(yokai_number))
+            yokai_number += 1
         else:  # Ape 猿
-            print(samurai_number)
+            print(yokai_number)
             clan_dirty = traits[3]
             clan = clean_clan(clan_dirty)
 
@@ -694,5 +690,5 @@ def generate(traits_list_txt, restart_from):
 
             base = overlay_textures(base)
 
-            base.save("output/UkiyoeWarrior#{}.png".format(samurai_number))
-            samurai_number += 1
+            base.save("output/UkiyoeWarrior#{}.png".format(yokai_number))
+            yokai_number += 1

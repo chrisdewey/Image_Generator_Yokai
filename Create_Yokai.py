@@ -1,3 +1,5 @@
+# TODO this is old, adapt from restart_yokai if need to use.
+
 # import os
 from PIL import Image
 import numpy
@@ -74,7 +76,6 @@ def generate(traits_list):
     for traits in traits_list:
         if traits[0] == "Samurai 侍":
             print(samurai_number)
-
 
             background = traits[1]
 
