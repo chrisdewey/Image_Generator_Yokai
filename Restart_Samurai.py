@@ -119,10 +119,11 @@ def generate(traits_list_txt, restart_from):
             head = Image.open('/input/{0}/Head 頭/{1}.png'.format(yokai, traits[3]))
             face = Image.open('/input/{0}/Face 顔/{1}.png'.format(yokai, traits[5]))
             earring = Image.open('/input/{0}/Earring 耳飾り/{1}.png'.format(yokai, traits[6]))
-            companion = Image.open('/input/- Nakama 仲間 -/{}.png'.format(traits[6]))
+            companion = Image.open('/input/- Nakama 仲間 -/{}.png'.format(traits[7]))
             hand = Image.open('/input/{0}/Hand 手/{1}/{2}/{3}.png'.format(yokai, traits[8], hand_clothing, color))
             weapon = Image.open('/input/{0}/Hand 手/{1}/{2}.png'.format(yokai, traits[8], traits[8]))
 
+            """
             # TODO delete most of beneath after finnished.
             banner = Image.open('images/Ukiyoe Warriors/- Banners 指物 -/{}.png'.format(traits[3]))
 
@@ -218,6 +219,7 @@ def generate(traits_list_txt, restart_from):
             else:  # Back and NO Clan DISHEVELED ONLY
                 head = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Front.png'.format(head_trait))
                 head_back = Image.open('images/Ukiyoe Warriors/Samurai 侍/Head 頭/{0}/Back.png'.format(head_trait))
+            """
 
             base = Image.open('/input/- Background 背景 -/{}.png'.format(background))  # Base == bg
             base = base.convert('RGBA')

@@ -1,6 +1,7 @@
 import json
 
 
+# Order = [char, bg, color, head, body, face, earring, companion, hand]
 def yokai(traits_list):
 
     # Japanese for none: 無し
@@ -25,63 +26,46 @@ def yokai(traits_list):
                 "value": traits_list[i][1]
             }
         )
-        ele_val = traits_list[i][2]
-        if ele_val == "None":
-            ele_val = ele_val + " 無し"
+        color = traits_list[i][2]
         token["attributes"].append(
             {
-                "trait_type": "Element 元素",
-                "value": ele_val
+                "trait_type": "Color 色",
+                "value": color
             }
         )
         token["attributes"].append(
             {
-                "trait_type": "Clan 一族",
+                "trait_type": "Head 頭",
                 "value": traits_list[i][3]
             }
         )
         token["attributes"].append(
             {
-                "trait_type": "Attire 服装",
+                "trait_type": "Body 体",
                 "value": traits_list[i][4]
             }
         )
         token["attributes"].append(
             {
-                "trait_type": "Weapon 武器",
+                "trait_type": "Face 顔",
                 "value": traits_list[i][5]
             }
         )
-        head_val = traits_list[i][10]
-        if head_val == "None":
-            head_val = head_val + " 無し"
         token["attributes"].append(
             {
-                "trait_type": "Head 頭",
-                "value": head_val
-            }
-        )
-        ear_val = traits_list[i][6]
-        if ear_val == "None":
-            ear_val = ear_val + " 無し"
-        token["attributes"].append(
-            {
-                "trait_type": "Earrings 耳飾り",
-                "value": ear_val
-            }
-        )
-        face_val = traits_list[i][9]
-        if face_val == "None":
-            face_val = face_val + " 無し"
-        token["attributes"].append(
-            {
-                "trait_type": "Face 顔",
-                "value": face_val
+                "trait_type": "Earring 耳飾り",
+                "value": traits_list[i][6]
             }
         )
         token["attributes"].append(
             {
-                "trait_type": "Eyes 目",
+                "trait_type": "Nakama 仲間",
+                "value": traits_list[i][7]
+            }
+        )
+        token["attributes"].append(
+            {
+                "trait_type": "Hand 手",
                 "value": traits_list[i][8]
             }
         )

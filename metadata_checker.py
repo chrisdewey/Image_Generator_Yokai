@@ -1,28 +1,29 @@
 import json
 from collections import defaultdict
 
-traits_warrior = dict()
+# Order = [char, bg, color, head, body, face, earring, companion, hand]
+traits_yokai = dict()
 traits_background = dict()
-traits_element = dict()
-traits_clan = dict()
-traits_attire = dict()
-traits_weapon = dict()
+traits_color = dict()
 traits_head = dict()
-traits_earrings = dict()
+traits_body = dict()
 traits_face = dict()
-traits_eyes = dict()
+traits_earring = dict()
+traits_companion = dict()
+traits_hand = dict()
 
-traits_warrior_tracker = defaultdict(list)
+traits_yokai_tracker = defaultdict(list)
 traits_background_tracker = defaultdict(list)
-traits_element_tracker = defaultdict(list)
-traits_clan_tracker = defaultdict(list)
-traits_attire_tracker = defaultdict(list)
-traits_weapon_tracker = defaultdict(list)
+traits_color_tracker = defaultdict(list)
 traits_head_tracker = defaultdict(list)
-traits_earrings_tracker = defaultdict(list)
+traits_body_tracker = defaultdict(list)
 traits_face_tracker = defaultdict(list)
-traits_eyes_tracker = defaultdict(list)
+traits_earring_tracker = defaultdict(list)
+traits_companion_tracker = defaultdict(list)
+traits_hand_tracker = defaultdict(list)
 
+
+# TODO updated above, old below still.
 path_to_json = 'output/metadata/'
 for file_name in range(1, 3778):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:

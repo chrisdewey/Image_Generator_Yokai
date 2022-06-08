@@ -1,34 +1,35 @@
 import json
 
-traits_warrior = {}
+traits_yokai = {}
 traits_background = {}
-traits_element = {}
-traits_clan = {}
-traits_attire = {}
-traits_weapon = {}
+traits_color = {}
 traits_head = {}
-traits_earrings = {}
+traits_body = {}
 traits_face = {}
-traits_eyes = {}
+traits_earring = {}
+traits_companion = {}
+traits_hand = {}
 
 path_to_json = 'output/metadata/'
-for file_name in range(1, 3778):
+for file_name in range(1, 4445):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
 
         for trait in data['attributes']:
-            if trait['trait_type'] == "Warrior 武士":
-                if trait['value'] not in traits_warrior:
-                    traits_warrior[trait['value']] = 1
+            if trait['trait_type'] == "Yōkai 妖怪":
+                if trait['value'] not in traits_yokai:
+                    traits_yokai[trait['value']] = 1
                 else:
-                    traits_warrior[trait['value']] = traits_warrior[trait['value']] + 1
+                    traits_yokai[trait['value']] = traits_yokai[trait['value']] + 1
 
             if trait['trait_type'] == "Background 背景":
                 if trait['value'] not in traits_background:
                     traits_background[trait['value']] = 1
                 else:
                     traits_background[trait['value']] = traits_background[trait['value']] + 1
+
+            # TODO fix after this section. this file to be called after legendaries added.
 
             if trait['trait_type'] == "Element 元素":
                 if trait['value'] not in traits_element:
@@ -89,7 +90,7 @@ for file_name in range(1, 3778):
 
         for trait in data['attributes']:
             if trait['trait_type'] == "Warrior 武士":
-                perc = traits_warrior[trait['value']] / 3777
+                perc = traits_warrior[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -100,7 +101,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Background 背景":
-                perc = traits_background[trait['value']] / 3777
+                perc = traits_background[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -111,7 +112,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Element 元素":
-                perc = traits_element[trait['value']] / 3777
+                perc = traits_element[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -122,7 +123,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Clan 一族":
-                perc = traits_clan[trait['value']] / 3777
+                perc = traits_clan[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -133,7 +134,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Attire 服装":
-                perc = traits_attire[trait['value']] / 3777
+                perc = traits_attire[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -144,7 +145,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Weapon 武器":
-                perc = traits_weapon[trait['value']] / 3777
+                perc = traits_weapon[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -155,7 +156,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Head 頭":
-                perc = traits_head[trait['value']] / 3777
+                perc = traits_head[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -166,7 +167,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Earrings 耳飾り":
-                perc = traits_earrings[trait['value']] / 3777
+                perc = traits_earrings[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -177,7 +178,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Face 顔":
-                perc = traits_face[trait['value']] / 3777
+                perc = traits_face[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -188,7 +189,7 @@ for file_name in range(1, 3778):
                 rarity = rarity + score
 
             if trait['trait_type'] == "Eyes 目":
-                perc = traits_eyes[trait['value']] / 3777
+                perc = traits_eyes[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
@@ -212,7 +213,7 @@ for file_name in range(1, 3778):
         json.dump(new_data, json_file, indent=4)
 
 ranking = {}
-for i in range(1, 3778):
+for i in range(1, 4445):
     with open(path_to_json + 'updated/' + str(i) + ".json", "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
         ranking[i] = data["rarity"]
@@ -220,7 +221,7 @@ for i in range(1, 3778):
 new_ranking = {k: b for k, b in sorted(ranking.items(), key=lambda element: element[1], reverse=True)}
 # new_ranking = sorted(ranking.items(), key=operator.itemgetter(1))
 
-for file_name in range(1, 3778):
+for file_name in range(1, 4445):
     with open(path_to_json + 'updated/' + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
