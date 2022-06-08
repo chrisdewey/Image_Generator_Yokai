@@ -1,6 +1,6 @@
 import Create_Yokai
 import Create_Metadata
-import Restart_Samurai
+import Restart_Yokai
 import randomizer
 import ast
 # import metadata_rarity_generator

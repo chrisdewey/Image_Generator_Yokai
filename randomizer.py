@@ -62,7 +62,7 @@ earring_nums = [999, 699, 599, 499, 450, 394, 350, 250, 200]
 # Companion 仲間  == Nakama 仲間
 companion = ["None 無し", "Onibi 鬼火", "Kitsune 狐", "Kodama 木霊", "Koi 鯉", "Tatsu 龍"]
 companion_random = []
-companion_nums = [2444, 578, 522, 444, 408, 44]
+companion_nums = [2444, 571, 503, 448, 397, 77]
 
 # Hand 手
 hand = ["Spiked Club 金棒", "Naginata 薙刀", "Boar Mask 猪の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
@@ -155,6 +155,34 @@ def gen_lists():
     random.shuffle(earring_random)
     random.shuffle(companion_random)
     random.shuffle(hand_random)
+    random.shuffle(chikara_random)
+
+    check_helm()
+
+
+def check_helm():
+    for i in range(len(head_random)):
+        if head_random[i] in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]:
+            if face_random[i] != "Plain 普通":
+                swap_helm(i, "face")
+            if earring_random[i] != "None 無し":
+                swap_helm(i, "earring")
+
+
+def swap_helm(helm_location, item):
+    gokens = ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]
+    if item == "face":
+        for i in range(len(face_random)):
+            if face_random[i] == "Plain 普通" and head_random[i] not in gokens:
+                face_random[i] = face_random[helm_location]
+                face_random[helm_location] = "Plain 普通"
+                break
+    if item == "earring":
+        for i in range(len(earring_random)):
+            if earring_random[i] == "None 無し" and head_random[i] not in gokens:
+                earring_random[i] = earring_random[helm_location]
+                earring_random[helm_location] = "None 無し"
+                break
 
 
 # TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
@@ -175,7 +203,7 @@ def generate_yokai(char_num):
     if character == "Tengu 天狗":
         chars_tracker[3] += 1
         color = tengu_color_random.pop(0)
-    # Order = [char, bg, color, head, body, face, earring, companion, hand]
+    # Order = [char, bg, color, head, body, face, earring, companion, hand, chikara]
     new_yokai.append(character)
 
     background = bg_random[char_num]
@@ -201,11 +229,14 @@ def generate_yokai(char_num):
     hand1 = hand_random[char_num]
     new_yokai.append(hand1)
 
+    chikara1 = chikara_random[char_num]
+    new_yokai.append(chikara1)
+
     tups = tuple(new_yokai)
     key = hash(tups)
 
     if key in traits_list_hash:
-        print("CONFLICT")
+        print("CONFLICT - on yokai " + str(char_num))
 
         new_yokai = reroll(new_yokai, char_num)
 
@@ -221,22 +252,34 @@ def generate_yokai(char_num):
 
 # TODO: BUG here with recursion. If trait isn't fixed can infinite loop. rerunning can avoid the issue since only needed
 #   once.
-def reroll(new_yokai, char_num):
-    next_char = char_num + 1
+def reroll(new_yokai, char_num, re=1):
+    next_char = char_num + re
 
-    if (new_yokai[3] not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]
-            and head_random[next_char]not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]
-            and new_yokai[3] != head_random[next_char]):
-        trouble_trait = new_yokai[3]
-        new_yokai[3] = head_random[next_char]
-        head_random[next_char] = trouble_trait
+    if new_yokai[3] not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]\
+            and head_random[next_char] not in ["Goken Helm 護拳甲", "Dark Goken 闇の護拳"]:
+        if new_yokai[3] != head_random[next_char]:
+            trouble_trait = new_yokai[3]
+            new_yokai[3] = head_random[next_char]
+            head_random[next_char] = trouble_trait
+
+        if new_yokai[6] != earring_random[next_char]:
+            trouble_trait = new_yokai[6]
+            new_yokai[6] = earring_random[next_char]
+            earring_random[next_char] = trouble_trait
+    else:
+        print("goken'd")
+        if hand_random[next_char] != new_yokai[8]:
+            trouble_trait = new_yokai[8]
+            new_yokai[8] = hand_random[next_char]
+            hand_random[next_char] = trouble_trait
 
     tups = tuple(new_yokai)
     key = hash(tups)
     if key not in traits_list_hash:
         print("RESOLVED")
     else:
-        reroll(new_yokai, char_num)
+        new_re = re + 1
+        reroll(new_yokai, char_num, new_re)
 
     return new_yokai
 
