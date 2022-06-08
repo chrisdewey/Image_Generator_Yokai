@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict
 
-# Order = [char, bg, color, head, body, face, earring, companion, hand]
+# Order = [char, bg, color, head, body, face, earring, companion, hand, chikara]
 traits_yokai = dict()
 traits_background = dict()
 traits_color = dict()
@@ -11,6 +11,7 @@ traits_face = dict()
 traits_earring = dict()
 traits_companion = dict()
 traits_hand = dict()
+traits_chikara = dict()
 
 traits_yokai_tracker = defaultdict(list)
 traits_background_tracker = defaultdict(list)
@@ -21,6 +22,8 @@ traits_face_tracker = defaultdict(list)
 traits_earring_tracker = defaultdict(list)
 traits_companion_tracker = defaultdict(list)
 traits_hand_tracker = defaultdict(list)
+traits_chikara_tracker = defaultdict(list)
+
 
 
 # TODO updated above, old below still.

@@ -9,6 +9,7 @@ traits_face = {}
 traits_earring = {}
 traits_companion = {}
 traits_hand = {}
+traits_chikara = {}
 
 path_to_json = 'output/metadata/'
 for file_name in range(1, 4445):

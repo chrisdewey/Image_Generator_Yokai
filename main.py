@@ -5,11 +5,11 @@ import randomizer
 import ast
 # import metadata_rarity_generator
 
-traits = randomizer.randomize_all(4440)
+# traits = randomizer.randomize_all(4440)
 
-# Create_Metadata.yokai(traits)
+Create_Metadata.yokai_metadata_from_file('traits.txt')
 # Create_Samurai.generate(traits)
-# Restart_Samurai.generate('traits.txt', 741)
+# Restart_Yokai.generate('traits.txt', 0)
 
 
 """ 

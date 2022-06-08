@@ -11,7 +11,7 @@ characters = 4440
 chars_list = []
 
 # Lists holding traits and a weights var
-bg = ["Navy 濃い青", "Light Blue 水色", "Pink 桃色", "Yellow 黄", "Green 緑", "Red 赤",
+bg = ["Navy 紺", "Light Blue 水色", "Pink 桃色", "Yellow 黄", "Green 緑", "Red 赤",
       "Orange 橙色", "Gold 金", "Platinum 白金", "Amethyst 紫水晶", "Saiké サイケ"]
 bg_random = []
 bg_nums = [802, 786, 611, 607, 462, 355, 263, 240, 133, 128, 53]  # - ronin traits. do for all traits. done.
@@ -23,7 +23,7 @@ kappa_color = ["Green 緑", "Blue 青", "Black 黒", "White 白"]
 kappa_color_random = []
 kappa_color_nums = [383, 316, 218, 193]
 
-okami_color = ["Brown 茶色", "Slate Blue 炭青", "Black 黒", "White 白"]
+okami_color = ["Brown 茶色", "Slate Blue 炭青", "Black 黒", "White 白"]  # TODO change metadata to be Slate 炭青, remove blue
 okami_color_random = []
 okami_color_nums = [383, 316, 218, 193]
 
@@ -65,7 +65,7 @@ companion_random = []
 companion_nums = [2444, 571, 503, 448, 397, 77]
 
 # Hand 手
-hand = ["Spiked Club 金棒", "Naginata 薙刀", "Boar Mask 猪の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
+hand = ["Kanabō 金棒", "Naginata 薙刀", "Boar Mask 猪の面", "Mononoke Mask 物の怪面", "Dragon Egg 龍の卵",
         "Ramen Bowl ラーメン鉢", "Beast Mask 獣の面", "SHAman Staff シャマ杖", "Saké 酒", "Kaonashi Mask 顔無し面",
         "Diamond Hand 金剛者", "Guardian\'s Scythe 守護人の釜"]
 hand_random = []

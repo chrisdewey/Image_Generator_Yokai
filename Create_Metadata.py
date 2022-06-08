@@ -1,8 +1,12 @@
 import json
+import ast
 
 
-# Order = [char, bg, color, head, body, face, earring, companion, hand]
-def yokai(traits_list):
+# Order = [char, bg, color, head, body, face, earring, companion, hand, chikara]
+def yokai_metadata_from_file(traits_list_txt):
+
+    with open(traits_list_txt, 'r', encoding='utf-8') as f:
+        traits_list = ast.literal_eval(f.read())
 
     # Japanese for none: 無し
     for i in range(len(traits_list)):
@@ -27,6 +31,8 @@ def yokai(traits_list):
             }
         )
         color = traits_list[i][2]
+        if traits_list[i][0] == "Ōkami 狼" and color == "Slate Blue 炭青":
+            color = "Slate 炭青"
         token["attributes"].append(
             {
                 "trait_type": "Color 色",
@@ -59,14 +65,20 @@ def yokai(traits_list):
         )
         token["attributes"].append(
             {
+                "trait_type": "Hand 手",
+                "value": traits_list[i][8]
+            }
+        )
+        token["attributes"].append(
+            {
                 "trait_type": "Nakama 仲間",
                 "value": traits_list[i][7]
             }
         )
         token["attributes"].append(
             {
-                "trait_type": "Hand 手",
-                "value": traits_list[i][8]
+                "trait_type": "Chikara 力",
+                "value": traits_list[i][9]
             }
         )
 
