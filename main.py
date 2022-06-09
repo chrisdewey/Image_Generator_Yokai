@@ -7,9 +7,9 @@ import ast
 
 # traits = randomizer.randomize_all(4440)
 
-Create_Metadata.yokai_metadata_from_file('traits.txt')
+# Create_Metadata.yokai_metadata_from_file('traits.txt')
 # Create_Samurai.generate(traits)
-# Restart_Yokai.generate('traits.txt', 0)
+# Restart_Yokai.generate('traits.txt', 222)
 
 
 """ 

@@ -12,7 +12,7 @@ traits_hand = {}
 traits_chikara = {}
 
 path_to_json = 'output/metadata/'
-for file_name in range(1, 4445):
+for file_name in range(1, 4441):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
@@ -30,31 +30,11 @@ for file_name in range(1, 4445):
                 else:
                     traits_background[trait['value']] = traits_background[trait['value']] + 1
 
-            # TODO fix after this section. this file to be called after legendaries added.
-
-            if trait['trait_type'] == "Element 元素":
-                if trait['value'] not in traits_element:
-                    traits_element[trait['value']] = 1
+            if trait['trait_type'] == "Color 色":
+                if trait['value'] not in traits_color:
+                    traits_color[trait['value']] = 1
                 else:
-                    traits_element[trait['value']] = traits_element[trait['value']] + 1
-
-            if trait['trait_type'] == "Clan 一族":
-                if trait['value'] not in traits_clan:
-                    traits_clan[trait['value']] = 1
-                else:
-                    traits_clan[trait['value']] = traits_clan[trait['value']] + 1
-
-            if trait['trait_type'] == "Attire 服装":
-                if trait['value'] not in traits_attire:
-                    traits_attire[trait['value']] = 1
-                else:
-                    traits_attire[trait['value']] = traits_attire[trait['value']] + 1
-
-            if trait['trait_type'] == "Weapon 武器":
-                if trait['value'] not in traits_weapon:
-                    traits_weapon[trait['value']] = 1
-                else:
-                    traits_weapon[trait['value']] = traits_weapon[trait['value']] + 1
+                    traits_color[trait['value']] = traits_color[trait['value']] + 1
 
             if trait['trait_type'] == "Head 頭":
                 if trait['value'] not in traits_head:
@@ -62,11 +42,11 @@ for file_name in range(1, 4445):
                 else:
                     traits_head[trait['value']] = traits_head[trait['value']] + 1
 
-            if trait['trait_type'] == "Earrings 耳飾り":
-                if trait['value'] not in traits_earrings:
-                    traits_earrings[trait['value']] = 1
+            if trait['trait_type'] == "Body 体":
+                if trait['value'] not in traits_body:
+                    traits_body[trait['value']] = 1
                 else:
-                    traits_earrings[trait['value']] = traits_earrings[trait['value']] + 1
+                    traits_body[trait['value']] = traits_body[trait['value']] + 1
 
             if trait['trait_type'] == "Face 顔":
                 if trait['value'] not in traits_face:
@@ -74,13 +54,34 @@ for file_name in range(1, 4445):
                 else:
                     traits_face[trait['value']] = traits_face[trait['value']] + 1
 
-            if trait['trait_type'] == "Eyes 目":
-                if trait['value'] not in traits_eyes:
-                    traits_eyes[trait['value']] = 1
+            if trait['trait_type'] == "Earring 耳飾り":
+                if trait['value'] not in traits_earring:
+                    traits_earring[trait['value']] = 1
                 else:
-                    traits_eyes[trait['value']] = traits_eyes[trait['value']] + 1
+                    traits_earring[trait['value']] = traits_earring[trait['value']] + 1
 
-for file_name in range(1, 3778):
+            if trait['trait_type'] == "Hand 手":
+                if trait['value'] not in traits_hand:
+                    traits_hand[trait['value']] = 1
+                else:
+                    traits_hand[trait['value']] = traits_hand[trait['value']] + 1
+
+            if trait['trait_type'] == "Nakama 仲間":
+                if trait['value'] not in traits_companion:
+                    traits_companion[trait['value']] = 1
+                else:
+                    traits_companion[trait['value']] = traits_companion[trait['value']] + 1
+
+            if trait['trait_type'] == "Chikara 力":
+                if trait['value'] not in traits_chikara:
+                    traits_chikara[trait['value']] = 1
+                else:
+                    traits_chikara[trait['value']] = traits_chikara[trait['value']] + 1
+
+            # TODO fix after this section. this file to be called after legendaries added.
+
+
+for file_name in range(1, 4441):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
@@ -90,12 +91,12 @@ for file_name in range(1, 3778):
         rarity = 0
 
         for trait in data['attributes']:
-            if trait['trait_type'] == "Warrior 武士":
-                perc = traits_warrior[trait['value']] / 4444
+            if trait['trait_type'] == "Yōkai 妖怪":
+                perc = traits_yokai[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
-                        "trait_type": "Warrior 武士",
+                        "trait_type": "Yōkai 妖怪",
                         "value": score
                     }
                 )
@@ -112,45 +113,12 @@ for file_name in range(1, 3778):
                 )
                 rarity = rarity + score
 
-            if trait['trait_type'] == "Element 元素":
-                perc = traits_element[trait['value']] / 4444
+            if trait['trait_type'] == "Color 色":
+                perc = traits_color[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
-                        "trait_type": "Element 元素",
-                        "value": score
-                    }
-                )
-                rarity = rarity + score
-
-            if trait['trait_type'] == "Clan 一族":
-                perc = traits_clan[trait['value']] / 4444
-                score = 1 / perc
-                scores.append(
-                    {
-                        "trait_type": "Clan 一族",
-                        "value": score
-                    }
-                )
-                rarity = rarity + score
-
-            if trait['trait_type'] == "Attire 服装":
-                perc = traits_attire[trait['value']] / 4444
-                score = 1 / perc
-                scores.append(
-                    {
-                        "trait_type": "Attire 服装",
-                        "value": score
-                    }
-                )
-                rarity = rarity + score
-
-            if trait['trait_type'] == "Weapon 武器":
-                perc = traits_weapon[trait['value']] / 4444
-                score = 1 / perc
-                scores.append(
-                    {
-                        "trait_type": "Weapon 武器",
+                        "trait_type": "Color 色",
                         "value": score
                     }
                 )
@@ -167,12 +135,12 @@ for file_name in range(1, 3778):
                 )
                 rarity = rarity + score
 
-            if trait['trait_type'] == "Earrings 耳飾り":
-                perc = traits_earrings[trait['value']] / 4444
+            if trait['trait_type'] == "Body 体":
+                perc = traits_body[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
-                        "trait_type": "Earrings 耳飾り",
+                        "trait_type": "Body 体",
                         "value": score
                     }
                 )
@@ -189,12 +157,45 @@ for file_name in range(1, 3778):
                 )
                 rarity = rarity + score
 
-            if trait['trait_type'] == "Eyes 目":
-                perc = traits_eyes[trait['value']] / 4444
+            if trait['trait_type'] == "Earring 耳飾り":
+                perc = traits_earring[trait['value']] / 4444
                 score = 1 / perc
                 scores.append(
                     {
-                        "trait_type": "Eyes 目",
+                        "trait_type": "Earring 耳飾り",
+                        "value": score
+                    }
+                )
+                rarity = rarity + score
+
+            if trait['trait_type'] == "Hand 手":
+                perc = traits_hand[trait['value']] / 4444
+                score = 1 / perc
+                scores.append(
+                    {
+                        "trait_type": "Hand 手",
+                        "value": score
+                    }
+                )
+                rarity = rarity + score
+
+            if trait['trait_type'] == "Nakama 仲間":
+                perc = traits_companion[trait['value']] / 4444
+                score = 1 / perc
+                scores.append(
+                    {
+                        "trait_type": "Nakama 仲間",
+                        "value": score
+                    }
+                )
+                rarity = rarity + score
+
+            if trait['trait_type'] == "Chikara 力":
+                perc = traits_chikara[trait['value']] / 4444
+                score = 1 / perc
+                scores.append(
+                    {
+                        "trait_type": "Chikara 力",
                         "value": score
                     }
                 )
@@ -214,7 +215,7 @@ for file_name in range(1, 3778):
         json.dump(new_data, json_file, indent=4)
 
 ranking = {}
-for i in range(1, 4445):
+for i in range(1, 4441):
     with open(path_to_json + 'updated/' + str(i) + ".json", "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
         ranking[i] = data["rarity"]
@@ -222,7 +223,7 @@ for i in range(1, 4445):
 new_ranking = {k: b for k, b in sorted(ranking.items(), key=lambda element: element[1], reverse=True)}
 # new_ranking = sorted(ranking.items(), key=operator.itemgetter(1))
 
-for file_name in range(1, 4445):
+for file_name in range(1, 4441):
     with open(path_to_json + 'updated/' + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
@@ -235,7 +236,7 @@ for file_name in range(1, 4445):
     new_data['rank'] = rank
     new_data.update(data)
 
-    with open(path_to_json + 'updated2/' + str(file_name) + ".json", "w", encoding='utf-8') as json_file:
+    with open(path_to_json + 'ranked/' + str(file_name) + ".json", "w", encoding='utf-8') as json_file:
         json.dump(new_data, json_file, indent=4)
 
 print(ranking)
