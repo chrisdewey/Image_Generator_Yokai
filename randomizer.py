@@ -231,9 +231,9 @@ def generate_yokai(char_num):
     chikara1 = chikara_random[char_num]
     new_yokai.append(chikara1)
 
+    # Check if this character trait set already has been generated
     tups = tuple(new_yokai)
     key = hash(tups)
-
     if key in traits_list_hash:
         print("CONFLICT - on yokai " + str(char_num))
 
@@ -283,12 +283,12 @@ def reroll(new_yokai, char_num, re=1):
     return new_yokai
 
 
-def randomize_all(num_to_gen):
+def randomize_all():
     gen_lists()
 
     gen_char_list()
 
-    for i in range(num_to_gen):
+    for i in range(4440):
         new_yokai = generate_yokai(i)
 
         traits_list_hash.add(hash(new_yokai))
