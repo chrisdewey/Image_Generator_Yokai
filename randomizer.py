@@ -17,13 +17,13 @@ bg_random = []
 bg_nums = [802, 786, 611, 607, 462, 355, 263, 240, 133, 128, 53]  # - ronin traits. do for all traits. done.
 
 # COLOR 色
-# different color set for each yokai char
+# different color set for each Yokai char
 # New ratio instead of 1533, 1264, 870, 777 total. 1532 : 383 .. 1264 : 316 .. 872 : 218 .. 776 : 194
 kappa_color = ["Green 緑", "Blue 青", "Black 黒", "White 白"]
 kappa_color_random = []
 kappa_color_nums = [383, 316, 218, 193]
 
-okami_color = ["Brown 茶色", "Slate Blue 炭青", "Black 黒", "White 白"]  # TODO change metadata to be Slate 炭青, remove blue
+okami_color = ["Brown 茶色", "Slate Blue 炭青", "Black 黒", "White 白"]  # change metadata to be Slate 炭青, remove blue
 okami_color_random = []
 okami_color_nums = [383, 316, 218, 193]
 
@@ -40,9 +40,8 @@ head = ["Plain 普通", "Nezuko Horn 禰豆子の角", "Third Eye 顱頂眼", "S
         "Veking Helmet ヴィキングメット", "Goken Helm 護拳甲", "Cursed Hat 祟り笠", "Dark Goken 闇の護拳"]
 head_random = []
 head_nums = [1238, 748, 529, 471, 429, 428, 333, 240, 24]
-# TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
 
-# Body 体  TODO: twilir gets eyes connected. the eyes are not a trait. just files (except goken helm, they're covered)
+# Body 体
 body = ["Plain 普通", "Scarred 傷", "Kimono 着物", "Hakui Kimono 白衣", "Twilir トワイリル"]
 body_random = []
 body_nums = [1584, 1051, 889, 700, 216]
@@ -157,6 +156,7 @@ def gen_lists():
     random.shuffle(hand_random)
     random.shuffle(chikara_random)
 
+    # Goken and Dark Goken Helm traits must be paired with Plain face and no earrings.
     check_helm()
 
 
@@ -185,7 +185,6 @@ def swap_helm(helm_location, item):
                 break
 
 
-# TODO: with the Goken Helm and Dark Goken, the face trait has to be "Plain" and no earring traits.
 def generate_yokai(char_num):
     new_yokai = []  # dict to hold traits for single samurai
 
@@ -251,7 +250,7 @@ def generate_yokai(char_num):
 
 
 # TODO: BUG here with recursion. If trait isn't fixed can infinite loop. rerunning can avoid the issue since only needed
-#   once.
+#   to run successfully once.
 def reroll(new_yokai, char_num, re=1):
     next_char = char_num + re
 

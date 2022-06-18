@@ -1,8 +1,5 @@
-# import os
 from PIL import Image
-import numpy
 import ast
-from blend_modes import addition, multiply, overlay
 import numpy as np
 
 
@@ -137,8 +134,10 @@ def generate(traits_list_txt, restart_from):
         if companion and traits[7] not in companion_back:
             base.paste(companion, companion)
 
-        # TODO: adjust the overlay textures.
         base = mask_textures(base)
 
-        base.save("output/UkiyoeYokai#{}.png".format(yokai_number+1))
+        # convert to RGB to drop alpha channel, even on PNG (alpha channel creates visual artifacts on overlapping)
+        base = base.convert("RGB")
+
+        base.save("output/UkiyoeYokai#{}.jpg".format(yokai_number+1))
         yokai_number += 1

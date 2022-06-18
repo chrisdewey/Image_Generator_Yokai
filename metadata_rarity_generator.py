@@ -1,3 +1,6 @@
+# TODO: merge with Create_Metadata.py. No reason to have them separated. Currently creates 3x metadata files, only need
+#   one set. Need to calculate rarity by looping through list before creating the json files.
+
 import json
 
 traits_yokai = {}
@@ -12,7 +15,7 @@ traits_hand = {}
 traits_chikara = {}
 
 path_to_json = 'output/metadata/'
-for file_name in range(1, 4441):
+for file_name in range(1, 4445):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
@@ -78,10 +81,8 @@ for file_name in range(1, 4441):
                 else:
                     traits_chikara[trait['value']] = traits_chikara[trait['value']] + 1
 
-            # TODO fix after this section. this file to be called after legendaries added.
 
-
-for file_name in range(1, 4441):
+for file_name in range(1, 4445):
     with open(path_to_json + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
@@ -215,7 +216,7 @@ for file_name in range(1, 4441):
         json.dump(new_data, json_file, indent=4)
 
 ranking = {}
-for i in range(1, 4441):
+for i in range(1, 4445):
     with open(path_to_json + 'updated/' + str(i) + ".json", "r", encoding='utf-8') as json_file:
         data = json.load(json_file)
         ranking[i] = data["rarity"]
@@ -223,7 +224,7 @@ for i in range(1, 4441):
 new_ranking = {k: b for k, b in sorted(ranking.items(), key=lambda element: element[1], reverse=True)}
 # new_ranking = sorted(ranking.items(), key=operator.itemgetter(1))
 
-for file_name in range(1, 4441):
+for file_name in range(1, 4445):
     with open(path_to_json + 'updated/' + str(file_name) + ".json", "r", encoding='utf-8') as json_file:
 
         data = json.load(json_file)
